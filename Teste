@@ -20,14 +20,14 @@ RED = (255, 0, 0)
 dano=3000
 # Player settings
 player_size = 66
-player_size2 = 42
+player_size2 = 60
 player_speed = 10
 
 # Bullet settings
 bullet_size = 2
 bullet_speed = 20
 
-# Enemy settings
+#enemy settings
 enemy_size = 50
 enemy_speed = 2
 
@@ -74,9 +74,10 @@ class rectangulobixa:
         self.rect = pygame.Rect(570, 1, 300, 150)
 
 
-def game_over_screen():
+def game_over_screen(rodando):
+    keys = pygame.key.get_pressed()
     screen.fill(BLACK)
-    
+        
     # Renderizar textos
     text = font.render("GAME OVER", True, RED)
     text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 3))
@@ -93,6 +94,19 @@ def game_over_screen():
     screen.blit(quit_text, quit_rect)
     
     pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    return
+                if event.key == pygame.K_SPACE:
+                    main()
+                    return
+
 
 # Main game loop
 def main():
@@ -109,7 +123,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
+    
         keys = pygame.key.get_pressed()
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
@@ -162,10 +176,6 @@ def main():
                     dano-=10
 
 
-        for projes in proj:
-            if player.rect.colliderect(projes.rect):
-                    pygame.quit()
-                    exit()
 
         # Drawing
         screen.fill(WHITE)
@@ -183,6 +193,10 @@ def main():
         font = pygame.font.Font(None, 36)
         score_text = font.render(f'Score: {score}', True, BLACK)
         screen.blit(score_text, (10, 10))
+
+        for projes in proj:
+            if player.rect.colliderect(projes.rect):
+                game_over_screen(running)
 
         pygame.display.flip()
         clock.tick(30)  # Frame rate
