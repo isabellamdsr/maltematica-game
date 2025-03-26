@@ -32,7 +32,7 @@ enemy_size = 50
 enemy_speed = 2
 
 #projetil sttings
-projetil_size=10
+projetil_size=25
 projetil_speed=12
 
 
@@ -152,6 +152,12 @@ def main():
                     bullets.remove(bullet)
                     enemies.remove(enemy)
                     score += 5  # Increment score for destroying an enemy
+                    break
+        for bullet in bullets[:]:
+            for proje in proj[:]:
+                if bullet.rect.colliderect(proje.rect):
+                    bullets.remove(bullet)
+                    proj.remove(proje) # Increment score for destroying an enemy
                     break
         rect=[]
         if dano>0:
