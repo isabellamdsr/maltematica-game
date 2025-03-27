@@ -17,7 +17,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
-dano=3000
+dano = 3000
 # Player settings
 player_size = 66
 player_size2 = 60
@@ -27,19 +27,20 @@ player_speed = 10
 bullet_size = 2
 bullet_speed = 20
 
-#enemy settings
+# Enemy settings
 enemy_size = 50
 enemy_speed = 2
 
-#projetil sttings
-projetil_size=25
-projetil_speed=12
-
+# Projetil settings
+projetil_size = 25
+projetil_speed = 12
 
 # Player class
 class Player:
     def __init__(self):
-        self.rect = pygame.Rect(WIDTH // 2, HEIGHT // 2, player_size2, player_size)
+        self.image = pygame.image.load("spritesGT/Player_idle.png")  # Carregar imagem do jogador
+        self.image = pygame.transform.scale(self.image, (player_size2, player_size))  # Ajustar o tamanho da imagem
+        self.rect = self.image.get_rect(center=(WIDTH // 2, HEIGHT // 2))  # Usar o retângulo da imagem
 
     def move(self, dx, dy):
         self.rect.x += dx * player_speed
@@ -54,7 +55,7 @@ class Bullet:
     def move(self):
         self.rect.y -= bullet_speed
 
-class projetil:
+class Projetil:
     def __init__(self):
         self.rect = pygame.Rect(random.randint(0, WIDTH - projetil_size), 0, projetil_size, projetil_size)
     
@@ -69,7 +70,7 @@ class Enemy:
     def move(self):
         self.rect.y += enemy_speed
 
-class rectangulobixa:
+class Rectangulobixa:
     def __init__(self):
         self.rect = pygame.Rect(570, 1, 300, 150)
 
@@ -112,10 +113,10 @@ def game_over_screen(rodando):
 def main():
     clock = pygame.time.Clock()
     player = Player()
-    dano=3000
+    dano = 3000
     bullets = []
     enemies = []
-    proj=[]
+    proj = []
     score = 0
     running = True
 
@@ -140,11 +141,11 @@ def main():
                 bullets.remove(bullet)
 
         if random.randint(1, 5) == 1:  # Adjust spawn rate
-            proj.append(projetil())
+            proj.append(Projetil())
 
         for projet in proj[:]:
             projet.move()
-            if projet.rect.top>HEIGHT:
+            if projet.rect.top > HEIGHT:
                 proj.remove(projet)
 
         # Spawn enemies
@@ -167,19 +168,17 @@ def main():
                     enemies.remove(enemy)
                     score += 5  # Increment score for destroying an enemy
                     break
-        rect=[]
-        if dano>0:
-            rect.append(rectangulobixa())
+        rect = []
+        if dano > 0:
+            rect.append(Rectangulobixa())
         for bullet in bullets[:]:
             for rec in rect:
                 if bullet.rect.colliderect(rec.rect):
-                    dano-=10
-
-
+                    dano -= 10
 
         # Drawing
         screen.fill(WHITE)
-        pygame.draw.rect(screen, BLACK, player.rect)
+        screen.blit(player.image, player.rect)  # Desenhar a imagem do jogador
         for bullet in bullets:
             pygame.draw.rect(screen, RED, bullet.rect)
         for enemy in enemies:
