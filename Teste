@@ -13,6 +13,15 @@ WIDTH, HEIGHT = 1440, 810
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Top-Down Shooter")
 
+#Lista naturais
+naturaisLista=['spritesGT\\Naturais\\zero.png','spritesGT\\Naturais\\um.webp','spritesGT\\Naturais\\dois.png',
+               'spritesGT\\Naturais\\tres.png','spritesGT\\Naturais\\quatro.png','spritesGT\\Naturais\\cinco.png',
+               'spritesGT\\Naturais\\seis.png','spritesGT\\Naturais\\sete.png','spritesGT\\Naturais\\oito.png',
+               'spritesGT\\Naturais\\nove.png']
+
+#Lista animacao navin
+navinLista=['spritesGT/navin/navin_idle.png','spritesGT/navin/navin_idle2.png','spritesGT/navin/navin_idle3.png','spritesGT/navin/navin_idle4.png']
+
 #Cores
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -39,7 +48,7 @@ projetil_speed = 12
 #barra de vida class
 class barraDeVida:
     def __init__(self, danado):
-        self.rect = pygame.Rect(320, 734, 800-(danado*0.26), 40) #esse 0.26 so ta ai se a vida do navin for 3000 (800/vida)
+        self.rect = pygame.Rect(320, 734, 800-(danado*0.26), 30) #esse 0.26 so ta ai se a vida do navin for 3000 (800/vida)
 
 #player class
 class Player:
@@ -67,7 +76,9 @@ class Bullet:
 #projetil class
 class Projetil:
     def __init__(self):
-        self.rect = pygame.Rect(random.randint(0, WIDTH - projetil_size), 0, projetil_size, projetil_size)
+        self.image = pygame.image.load(naturaisLista[random.randint(0,9)])  # Carregar imagem do jogador
+        self.image = pygame.transform.scale(self.image, (projetil_size, projetil_size))  # Ajustar o tamanho da imagem
+        self.rect = self.image.get_rect(center=(random.randint(0, WIDTH - projetil_size), 0))  # Usar o retângulo da imagem
     
     def move(self):
         self.rect.y += projetil_speed #Projetil cai pro inferno
@@ -82,8 +93,8 @@ class Enemy:
 
 #navin class
 class NAVIN:
-    def __init__(self):
-        self.image = pygame.image.load("spritesGT/navin_idle.png")  # Carregar imagem do jogador
+    def __init__(self, numeroNavin):
+        self.image = pygame.image.load(navinLista[numeroNavin])  # Carregar imagem do jogador
         self.image = pygame.transform.scale(self.image, (267, 315))  # Ajustar o tamanho da imagem
         self.rect = self.image.get_rect(center=(720, 150))  # Usar o retângulo da imagem
 
@@ -136,6 +147,7 @@ def main():
     enemies = []
     proj = []
     score = 0
+    numeroNavin=0
     running = True
 
 
@@ -187,7 +199,7 @@ def main():
         navins = []
         vida =[]
         if dano > 0:
-            navins.append(NAVIN())
+            navins.append(NAVIN(numeroNavin%3))
             vida.append(barraDeVida(3000-dano))
             #Spawn projetil
             if random.randint(1, 5) == 1:
@@ -201,11 +213,20 @@ def main():
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
 
+        #Tick de animacao do navin
+        if numeroNavin==30:
+            numeroNavin=1
+        elif numeroNavin==31:
+            numeroNavin=2
+        elif numeroNavin==32:
+            numeroNavin=0
+
+
         #Colisão bullet com navin
         for bullet in bullets[:]:
             for navin in navins:
                 if bullet.rect.colliderect(navin.rect):
-                    dano -= 70
+                    dano -= 100
                     bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
@@ -216,7 +237,7 @@ def main():
         for enemy in enemies:
             pygame.draw.rect(screen, BLACK, enemy.rect)
         for projec in proj:
-            pygame.draw.rect(screen, BLACK, projec.rect)
+            screen.blit(projec.image, projec.rect)
         for nav in navins:
             screen.blit(nav.image, nav.rect)
         for vidas in vida:
@@ -234,6 +255,7 @@ def main():
 
         #Comando pygame (NAO TOQUE)
         pygame.display.flip()
+        numeroNavin+=3 #é 3 pq tem 4 imagens de navin
         clock.tick(30)
 
     #NAO TOQUE
