@@ -7,6 +7,7 @@ from moduloNAVIN import NAVIN
 from moduloEnemy import Enemy
 from moduloBala import Bullet
 from moduloProjetil import Projetil
+from moduloArmaAtiva import armaAtiva
 
 #Comando pygame (NAO TOQUE)
 pygame.init()
@@ -104,6 +105,8 @@ def main():
     numeroNavin=0
     running = True
 
+    armaAtual = armaAtiva(0.5, 20, 21)
+
 
     while running:      #LOOP DE RODAR
         for event in pygame.event.get():
@@ -118,14 +121,15 @@ def main():
 
 
         #Spawn de bullet
-        if keys[pygame.K_SPACE]:
-                bullets.append(Bullet(player.rect.centerx, player.rect.top, bullet_size))
+        keys = pygame.key.get_pressed()
+        var = armaAtual.shoot(keys, player.rect.centerx, player.rect.top, bullets)
+        if var is not None:
+            bullets.append(var)
 
-        #Movimento de bullet
-        for bullet in bullets[:]:
-            bullet.move(bullet_speed)
-            if bullet.rect.bottom < 0:
-                bullets.remove(bullet)
+        #Movimento de bullet 
+        armaAtual.bullet_movement(bullets)
+
+        
 
         #Spawn de enemies
         if random.randint(1, 30000) == 1: 
@@ -175,10 +179,10 @@ def main():
 
 
         #Colisão bullet com navin
-        for bullet in bullets[:]:
+        for bullet in bullets:
             for navin in navins:
                 if bullet.rect.colliderect(navin.rect):
-                    dano -= 10
+                    dano -= 100
                     bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
