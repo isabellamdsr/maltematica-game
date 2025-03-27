@@ -1,7 +1,7 @@
 #Imports
 import pygame
 import random
-import moduloPlayer
+from moduloPlayer import Player
 
 #Comando pygame (NAO TOQUE)
 pygame.init()
@@ -129,7 +129,7 @@ def main():
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
 
     clock = pygame.time.Clock()
-    player = Player(player_size2, player_size)
+    player = Player(player_size2, player_size, WIDTH, HEIGHT)
     dano = 3000     #vida do navin
     #Lista de objetos moviveis gerados
     bullets = []
