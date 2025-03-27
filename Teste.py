@@ -3,6 +3,10 @@ import pygame
 import random
 from moduloPlayer import Player
 from moduloBarraDeVida import barraDeVida
+from moduloNAVIN import NAVIN
+from moduloEnemy import Enemy
+from moduloBala import Bullet
+from moduloProjetil import Projetil
 
 #Comando pygame (NAO TOQUE)
 pygame.init()
@@ -47,43 +51,6 @@ enemy_speed = 2
 projetil_size = 20
 projetil_speed = 12
 
-
-
-
-#bullet class
-class Bullet:
-    def __init__(self, x, y):
-        self.image = pygame.image.load("spritesGT/1 pixelado.webp")  # Carregar imagem do jogador
-        self.image = pygame.transform.scale(self.image, (bullet_size, bullet_size))  # Ajustar o tamanho da imagem
-        self.rect = self.image.get_rect(center=(x, y))  # Usar o retângulo da imagem
-
-    def move(self):
-        self.rect.y -= bullet_speed #Bullet sai do bloco player e vai ao além pra cima
-
-#projetil class
-class Projetil:
-    def __init__(self):
-        self.image = pygame.image.load(naturaisLista[random.randint(0,9)])  # Carregar imagem do jogador
-        self.image = pygame.transform.scale(self.image, (projetil_size, projetil_size))  # Ajustar o tamanho da imagem
-        self.rect = self.image.get_rect(center=(random.randint(0, WIDTH - projetil_size), 0))  # Usar o retângulo da imagem
-    
-    def move(self):
-        self.rect.y += projetil_speed #Projetil cai pro inferno
-
-#enemy class
-class Enemy:
-    def __init__(self):
-        self.rect = pygame.Rect(random.randint(0, WIDTH - enemy_size), 0, enemy_size, enemy_size)
-
-    def move(self):
-        self.rect.y += enemy_speed #emeny cai pro inferno
-
-#navin class
-class NAVIN:
-    def __init__(self, numeroNavin):
-        self.image = pygame.image.load(navinLista[numeroNavin])  # Carregar imagem do jogador
-        self.image = pygame.transform.scale(self.image, (267, 315))  # Ajustar o tamanho da imagem
-        self.rect = self.image.get_rect(center=(720, 150))  # Usar o retângulo da imagem
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
@@ -152,15 +119,13 @@ def main():
 
         #Spawn de bullet
         if keys[pygame.K_SPACE]:
-                bullets.append(Bullet(player.rect.centerx, player.rect.top))
+                bullets.append(Bullet(player.rect.centerx, player.rect.top, bullet_size))
 
         #Movimento de bullet
         for bullet in bullets[:]:
-            bullet.move()
+            bullet.move(bullet_speed)
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
-
-
 
         #Spawn de enemies
         if random.randint(1, 30000) == 1: 
@@ -186,11 +151,11 @@ def main():
         navins = []
         vida =[]
         if dano > 0:
-            navins.append(NAVIN(numeroNavin%3))
+            navins.append(NAVIN(numeroNavin%3, navinLista))
             vida.append(barraDeVida(3000-dano))
             #Spawn projetil
             if random.randint(1, 3) == 1:
-                proj.append(Projetil())
+                proj.append(Projetil(naturaisLista, WIDTH))
 
             #Movimento de projetil
             for projet in proj[:]:
