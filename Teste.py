@@ -2,6 +2,7 @@
 import pygame
 import random
 from moduloPlayer import Player
+from moduloBarraDeVida import barraDeVida
 
 #Comando pygame (NAO TOQUE)
 pygame.init()
@@ -15,10 +16,10 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Top-Down Shooter")
 
 #Lista naturais
-naturaisLista=['spritesGT\\Naturais\\zero.png','spritesGT\\Naturais\\um.webp','spritesGT\\Naturais\\dois.png',
-               'spritesGT\\Naturais\\tres.png','spritesGT\\Naturais\\quatro.png','spritesGT\\Naturais\\cinco.png',
-               'spritesGT\\Naturais\\seis.png','spritesGT\\Naturais\\sete.png','spritesGT\\Naturais\\oito.png',
-               'spritesGT\\Naturais\\nove.png']
+naturaisLista=['spritesGT/Naturais/zero.png','spritesGT/Naturais/um.webp','spritesGT/Naturais/dois.png',
+               'spritesGT/Naturais/tres.png','spritesGT/Naturais/quatro.png','spritesGT/Naturais/cinco.png',
+               'spritesGT/Naturais/seis.png','spritesGT/Naturais/sete.png','spritesGT/Naturais/oito.png',
+               'spritesGT/Naturais/nove.png']
 
 #Lista animacao navin
 navinLista=['spritesGT/navin/navin_idle.png','spritesGT/navin/navin_idle2.png','spritesGT/navin/navin_idle3.png','spritesGT/navin/navin_idle4.png']
@@ -46,10 +47,7 @@ enemy_speed = 2
 projetil_size = 20
 projetil_speed = 12
 
-#barra de vida class
-class barraDeVida:
-    def __init__(self, danado):
-        self.rect = pygame.Rect(320, 734, 800-(danado*0.266), 30) #esse 0.26 so ta ai se a vida do navin for 3000 (800/vida)
+
 
 
 #bullet class
