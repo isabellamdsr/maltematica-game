@@ -24,7 +24,7 @@ player_size2 = 60
 player_speed = 10
 
 # Bullet settings
-bullet_size = 2
+bullet_size = 7
 bullet_speed = 20
 
 # Enemy settings
@@ -32,7 +32,7 @@ enemy_size = 50
 enemy_speed = 2
 
 # Projetil settings
-projetil_size = 25
+projetil_size = 20
 projetil_speed = 12
 
 # Player class
@@ -121,7 +121,6 @@ def main():
 
     clock = pygame.time.Clock()
     player = Player()
-    lugar=[]
     dano = 3000
     bullets = []
     enemies = []
@@ -138,10 +137,6 @@ def main():
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
         player.move(dx, dy)
-
-        if True:
-            lugar.append(lugarAndavel())
-        
 
 
         # Shooting bullets
@@ -192,8 +187,6 @@ def main():
         # Drawing
         screen.blit(background, (0, 0))  # Desenhar o fundo
         screen.blit(player.image, player.rect)  # Desenhar a imagem do jogador
-        for local in lugar:
-            pygame.draw.rect(player.image, (0, 2, 0), local.rect)
         for bullet in bullets:
             pygame.draw.rect(screen, RED, bullet.rect)
         for enemy in enemies:
