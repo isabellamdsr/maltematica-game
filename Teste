@@ -1,41 +1,42 @@
+#Imports
 import pygame
 import random
 
-# Initialize Pygame
+#Comando pygame (NAO TOQUE)
 pygame.init()
 
 font = pygame.font.Font(None, 74)
 small_font = pygame.font.Font(None, 36)
 
-# Screen dimensions
+#Tela 
 WIDTH, HEIGHT = 1440, 810
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Top-Down Shooter")
 
-# Colors
+#Cores
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
 dano = 3000
-# Player settings
+#player config
 player_size = 66
 player_size2 = 60
 player_speed = 10
 
-# Bullet settings
-bullet_size = 7
+#bullet config
+bullet_size = 21
 bullet_speed = 20
 
-# Enemy settings
+#enemy settings
 enemy_size = 50
 enemy_speed = 2
 
-# Projetil settings
+#projetil settings
 projetil_size = 20
 projetil_speed = 12
 
-# Player class
+#player class
 class Player:
     def __init__(self):
         self.image = pygame.image.load("spritesGT/Player_idle.png")  # Carregar imagem do jogador
@@ -43,42 +44,43 @@ class Player:
         self.rect = self.image.get_rect(center=(WIDTH // 2, HEIGHT // 2))  # Usar o retângulo da imagem
 
     def move(self, dx, dy):
-        self.rect.x += dx * player_speed
-        self.rect.y += dy * player_speed
-        self.rect.clamp_ip(150, 291, 1140, 453)  # Keep player within screen bounds
+        self.rect.x += dx * player_speed    # Player andar em x
+        self.rect.y += dy * player_speed    # Player andar em y
+        self.rect.clamp_ip(150, 291, 1140, 453)  # Mantém o jogador dentro do local "andavel"
 
-class lugarAndavel:
-    def __init__(self):
-        self.rect = pygame.Rect(150, 291, 1140, 453)
 
-# Bullet class
+#bullet class
 class Bullet:
     def __init__(self, x, y):
-        self.rect = pygame.Rect(x, y, bullet_size, bullet_size)
+        self.image = pygame.image.load("spritesGT/1 pixelado.webp")  # Carregar imagem do jogador
+        self.image = pygame.transform.scale(self.image, (bullet_size, bullet_size))  # Ajustar o tamanho da imagem
+        self.rect = self.image.get_rect(center=(x, y))  # Usar o retângulo da imagem
 
     def move(self):
-        self.rect.y -= bullet_speed
+        self.rect.y -= bullet_speed #Bullet sai do bloco player e vai ao além pra cima
 
+#projetil class
 class Projetil:
     def __init__(self):
         self.rect = pygame.Rect(random.randint(0, WIDTH - projetil_size), 0, projetil_size, projetil_size)
     
     def move(self):
-        self.rect.y += projetil_speed
+        self.rect.y += projetil_speed #Projetil cai pro inferno
 
-# Enemy class
+#enemy class
 class Enemy:
     def __init__(self):
         self.rect = pygame.Rect(random.randint(0, WIDTH - enemy_size), 0, enemy_size, enemy_size)
 
     def move(self):
-        self.rect.y += enemy_speed
+        self.rect.y += enemy_speed #emeny cai pro inferno
 
-class Rectangulobixa:
+#navin class
+class NAVIN:
     def __init__(self):
         self.rect = pygame.Rect(570, 1, 300, 150)
 
-
+#tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
     keys = pygame.key.get_pressed()
     screen.fill(BLACK)
@@ -121,94 +123,107 @@ def main():
 
     clock = pygame.time.Clock()
     player = Player()
-    dano = 3000
+    dano = 3000     #vida do navin
+    #Lista de objetos moviveis gerados
     bullets = []
     enemies = []
     proj = []
     score = 0
     running = True
 
-    while running:
+
+    while running:      #LOOP DE RODAR
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
     
+        #Teclas de movi do player
         keys = pygame.key.get_pressed()
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
         player.move(dx, dy)
 
 
-        # Shooting bullets
+        #Spawn de bullet
         if keys[pygame.K_SPACE]:
                 bullets.append(Bullet(player.rect.centerx, player.rect.top))
 
-        # Move bullets
+        #Movimento de bullet
         for bullet in bullets[:]:
             bullet.move()
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
 
-        if random.randint(1, 5) == 1:  # Adjust spawn rate
+        #Spawn projetil
+        if random.randint(1, 5) == 1:
             proj.append(Projetil())
 
+        #Movimento de projetil
         for projet in proj[:]:
             projet.move()
             if projet.rect.top > HEIGHT:
                 proj.remove(projet)
 
-        # Spawn enemies
-        if random.randint(1, 3000) == 1:  # Adjust spawn rateaa
+        #Spawn de enemies
+        if random.randint(1, 30000) == 1: 
             enemies.append(Enemy())
 
-        # Move enemies
+        #Movimento de enemies
         for enemy in enemies[:]:
             enemy.move()
             if enemy.rect.top > HEIGHT:
                 enemies.remove(enemy)
-                score += 1  # Increment score for each enemy that goes off-screen
+                score += 1 
 
-        # Check for collisions
+        #Colisão de enemies com bullet
         for bullet in bullets[:]:
             for enemy in enemies[:]:
                 if bullet.rect.colliderect(enemy.rect):
                     bullets.remove(bullet)
                     enemies.remove(enemy)
-                    score += 5  # Increment score for destroying an enemy
+                    score += 5  
                     break
-        rect = []
-        if dano > 0:
-            rect.append(Rectangulobixa())
-        for bullet in bullets[:]:
-            for rec in rect:
-                if bullet.rect.colliderect(rec.rect):
-                    dano -= 10
 
-        # Drawing
-        screen.blit(background, (0, 0))  # Desenhar o fundo
-        screen.blit(player.image, player.rect)  # Desenhar a imagem do jogador
+        #Spawn nivan (NÃO TOQUE NESSA LIST)
+        navins = []
+        if dano > 0:
+            navins.append(NAVIN())
+
+        #Colisão bullet com navin
+        for bullet in bullets[:]:
+            for navin in navins:
+                if bullet.rect.colliderect(navin.rect):
+                    dano -= 100
+                    bullets.remove(bullet)
+
+        #Desenho player, fundo, bullet
+        screen.blit(background, (0, 0))  #
+        screen.blit(player.image, player.rect)  
         for bullet in bullets:
-            pygame.draw.rect(screen, RED, bullet.rect)
+            screen.blit(bullet.image, bullet.rect)
         for enemy in enemies:
             pygame.draw.rect(screen, BLACK, enemy.rect)
         for projec in proj:
             pygame.draw.rect(screen, BLACK, projec.rect)
-        for re in rect:
-            pygame.draw.rect(screen, BLACK, re.rect)
+        for nav in navins:
+            pygame.draw.rect(screen, BLACK, nav.rect)
 
-        # Display score
+        #Score (ADD VIDA, ARMA, VIDA NAVIN)
         font = pygame.font.Font(None, 36)
         score_text = font.render(f'Score: {score}', True, BLACK)
         screen.blit(score_text, (10, 10))
 
+        #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
         for projes in proj:
             if player.rect.colliderect(projes.rect):
                 game_over_screen(running)
 
+        #Comando pygame (NAO TOQUE)
         pygame.display.flip()
-        clock.tick(30)  # Frame rate
+        clock.tick(30)
 
+    #NAO TOQUE
     pygame.quit()
 
-if __name__ == "__main__":
-    main()
+#NAO TOQUE
+main()
