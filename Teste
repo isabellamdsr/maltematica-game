@@ -36,9 +36,10 @@ enemy_speed = 2
 projetil_size = 20
 projetil_speed = 12
 
+#barra de vida class
 class barraDeVida:
     def __init__(self, danado):
-        self.rect = pygame.Rect(320, 734, 800-(danado*0.26), 66)
+        self.rect = pygame.Rect(320, 734, 800-(danado*0.26), 40) #esse 0.26 so ta ai se a vida do navin for 3000 (800/vida)
 
 #player class
 class Player:
@@ -82,7 +83,9 @@ class Enemy:
 #navin class
 class NAVIN:
     def __init__(self):
-        self.rect = pygame.Rect(570, 1, 300, 150)
+        self.image = pygame.image.load("spritesGT/navin_idle.png")  # Carregar imagem do jogador
+        self.image = pygame.transform.scale(self.image, (267, 315))  # Ajustar o tamanho da imagem
+        self.rect = self.image.get_rect(center=(720, 150))  # Usar o retângulo da imagem
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
@@ -158,15 +161,7 @@ def main():
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
 
-        #Spawn projetil
-        if random.randint(1, 5) == 1:
-            proj.append(Projetil())
 
-        #Movimento de projetil
-        for projet in proj[:]:
-            projet.move()
-            if projet.rect.top > HEIGHT:
-                proj.remove(projet)
 
         #Spawn de enemies
         if random.randint(1, 30000) == 1: 
@@ -194,12 +189,23 @@ def main():
         if dano > 0:
             navins.append(NAVIN())
             vida.append(barraDeVida(3000-dano))
+            #Spawn projetil
+            if random.randint(1, 5) == 1:
+                proj.append(Projetil())
+
+            #Movimento de projetil
+            for projet in proj[:]:
+                projet.move()
+                if projet.rect.top > HEIGHT:
+                    proj.remove(projet)
+        elif dano<=0:   #apaga com os projeteis qnd navin morre
+            proj=[]
 
         #Colisão bullet com navin
         for bullet in bullets[:]:
             for navin in navins:
                 if bullet.rect.colliderect(navin.rect):
-                    dano -= 100
+                    dano -= 70
                     bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
@@ -212,7 +218,7 @@ def main():
         for projec in proj:
             pygame.draw.rect(screen, BLACK, projec.rect)
         for nav in navins:
-            pygame.draw.rect(screen, BLACK, nav.rect)
+            screen.blit(nav.image, nav.rect)
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
 
