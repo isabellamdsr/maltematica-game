@@ -202,7 +202,7 @@ def main():
             navins.append(NAVIN(numeroNavin%3))
             vida.append(barraDeVida(3000-dano))
             #Spawn projetil
-            if random.randint(1, 5) == 1:
+            if random.randint(1, 3) == 1:
                 proj.append(Projetil())
 
             #Movimento de projetil
@@ -226,7 +226,7 @@ def main():
         for bullet in bullets[:]:
             for navin in navins:
                 if bullet.rect.colliderect(navin.rect):
-                    dano -= 100
+                    dano -= 10
                     bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
