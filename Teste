@@ -45,7 +45,11 @@ class Player:
     def move(self, dx, dy):
         self.rect.x += dx * player_speed
         self.rect.y += dy * player_speed
-        self.rect.clamp_ip(screen.get_rect())  # Keep player within screen bounds
+        self.rect.clamp_ip(150, 291, 1140, 453)  # Keep player within screen bounds
+
+class lugarAndavel:
+    def __init__(self):
+        self.rect = pygame.Rect(150, 291, 1140, 453)
 
 # Bullet class
 class Bullet:
@@ -111,8 +115,13 @@ def game_over_screen(rodando):
 
 # Main game loop
 def main():
+    # Carregar a imagem de fundo
+    background = pygame.image.load("spritesGT/Map_1.png")
+    background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
+
     clock = pygame.time.Clock()
     player = Player()
+    lugar=[]
     dano = 3000
     bullets = []
     enemies = []
@@ -129,6 +138,11 @@ def main():
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
         player.move(dx, dy)
+
+        if True:
+            lugar.append(lugarAndavel())
+        
+
 
         # Shooting bullets
         if keys[pygame.K_SPACE]:
@@ -151,7 +165,6 @@ def main():
         # Spawn enemies
         if random.randint(1, 3000) == 1:  # Adjust spawn rateaa
             enemies.append(Enemy())
-
 
         # Move enemies
         for enemy in enemies[:]:
@@ -177,8 +190,10 @@ def main():
                     dano -= 10
 
         # Drawing
-        screen.fill(WHITE)
+        screen.blit(background, (0, 0))  # Desenhar o fundo
         screen.blit(player.image, player.rect)  # Desenhar a imagem do jogador
+        for local in lugar:
+            pygame.draw.rect(player.image, (0, 2, 0), local.rect)
         for bullet in bullets:
             pygame.draw.rect(screen, RED, bullet.rect)
         for enemy in enemies:
