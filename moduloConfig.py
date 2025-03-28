@@ -5,6 +5,7 @@ WIDTH, HEIGHT = 1440, 810
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Top-Down Shooter")
 
+
 #Cores
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
