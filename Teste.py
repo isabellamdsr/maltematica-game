@@ -1,11 +1,11 @@
 #Imports
 import pygame
 import random
+from moduloConfig import *
 from moduloPlayer import Player
 from moduloBarraDeVida import barraDeVida
 from moduloNAVIN import NAVIN
 from moduloEnemy import Enemy
-from moduloBala import Bullet
 from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
 
@@ -15,44 +15,7 @@ pygame.init()
 font = pygame.font.Font(None, 74)
 small_font = pygame.font.Font(None, 36)
 
-#Tela 
-WIDTH, HEIGHT = 1440, 810
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Top-Down Shooter")
-pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
-pygame.mixer.music.play(loops=-1)
-
-#Lista naturais
-naturaisLista=['spritesGT/Naturais/zero.png','spritesGT/Naturais/um.webp','spritesGT/Naturais/dois.png',
-               'spritesGT/Naturais/tres.png','spritesGT/Naturais/quatro.png','spritesGT/Naturais/cinco.png',
-               'spritesGT/Naturais/seis.png','spritesGT/Naturais/sete.png','spritesGT/Naturais/oito.png',
-               'spritesGT/Naturais/nove.png']
-
-#Lista animacao navin
-navinLista=['spritesGT/navin/navin_idle.png','spritesGT/navin/navin_idle2.png','spritesGT/navin/navin_idle3.png','spritesGT/navin/navin_idle4.png']
-
-#Cores
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-
 dano = 3000
-#player config
-player_size = 66
-player_size2 = 60
-player_speed = 10
-
-#bullet config
-bullet_size = 21
-bullet_speed = 20
-
-#enemy settings
-enemy_size = 50
-enemy_speed = 2
-
-#projetil settings
-projetil_size = 20
-projetil_speed = 12
 
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
