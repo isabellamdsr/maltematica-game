@@ -105,7 +105,11 @@ def main():
     numeroNavin=0
     running = True
 
-    armaAtual = armaAtiva(0.5, 20, 21)
+    arma1 = armaAtiva(0.5, 20, 21, 100, 1)
+    arma2 = armaAtiva(0.0, 30, 10, 10, 1)
+    arma3 = armaAtiva(2, 10, 70, 500, 1)
+
+    armaAtual = arma1
 
 
     while running:      #LOOP DE RODAR
@@ -113,8 +117,21 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
     
+        
+
         #Teclas de movi do player
         keys = pygame.key.get_pressed()
+
+
+        #troca de armas
+        if keys[pygame.K_0]:
+            armaAtual = arma1
+        elif keys[pygame.K_9]:
+            armaAtual = arma2
+        elif keys[pygame.K_8]:
+            armaAtual = arma3
+
+        #movimento do player
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
         player.move(dx, dy, player_speed)
@@ -182,7 +199,7 @@ def main():
         for bullet in bullets:
             for navin in navins:
                 if bullet.rect.colliderect(navin.rect):
-                    dano -= 100
+                    dano -= bullet.danoBala
                     bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
