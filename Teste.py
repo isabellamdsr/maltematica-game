@@ -93,6 +93,9 @@ def main():
     # Carregar a imagem de fundo
     background = pygame.image.load("spritesGT/Map_1.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
+    pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
+    pygame.mixer.music.play()
+
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
