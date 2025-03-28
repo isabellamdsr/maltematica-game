@@ -19,6 +19,8 @@ small_font = pygame.font.Font(None, 36)
 WIDTH, HEIGHT = 1440, 810
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Top-Down Shooter")
+pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
+pygame.mixer.music.play(loops=-1)
 
 #Lista naturais
 naturaisLista=['spritesGT/Naturais/zero.png','spritesGT/Naturais/um.webp','spritesGT/Naturais/dois.png',
@@ -93,8 +95,7 @@ def main():
     # Carregar a imagem de fundo
     background = pygame.image.load("spritesGT/Map_1.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
-    pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
-    pygame.mixer.music.play()
+    
 
 
     clock = pygame.time.Clock()
