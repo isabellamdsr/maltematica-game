@@ -14,16 +14,21 @@ class armaAtiva():
 
     def shoot(self,keys , playerX, playerY, bullets):
             currentTime = time.time()
+            anguloBala = [90, 75, 105, 60, 120]
+
             if keys[pygame.K_SPACE]:
-                if currentTime - self.lastAtk >= self.cooldown:     #se o tempo entre os tiros for maior que o 
-                                                                    #cooldown a arma atira, e declara o tempo do
-                    self.lastAtk = currentTime                      # ultimo tiro
-                    bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma))
+                    if currentTime - self.lastAtk >= self.cooldown:     #se o tempo entre os tiros for maior que o 
+                                                                        #cooldown a arma atira, e declara o tempo do
+                        self.lastAtk = currentTime                      # ultimo tiro
+                        for i in range(self.qntBalas):
+                            bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i]))
+
 
     def bullet_movement(self,bullets):
         #Movimento de bullet
+        
 
         for bullet in bullets[:]:
-            bullet.move(self.bulletSpeed, 90)
+            bullet.move(self.bulletSpeed, bullet.anguloBala)
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)

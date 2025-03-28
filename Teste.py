@@ -112,6 +112,7 @@ def main():
     arma1 = armaAtiva(0.5, 20, 21, 100, 1)
     arma2 = armaAtiva(0.0, 30, 10, 10, 1)
     arma3 = armaAtiva(2, 10, 70, 500, 1)
+    arma4 = armaAtiva(0.5,20, 15, 70, 5)
 
     armaAtual = arma1
 
@@ -134,6 +135,9 @@ def main():
             armaAtual = arma2
         elif keys[pygame.K_8]:
             armaAtual = arma3
+        elif keys[pygame.K_7]:
+            armaAtual = arma4
+        
 
         #movimento do player
         dx = keys[pygame.K_d] - keys[pygame.K_a]

@@ -3,7 +3,8 @@ import math
 
 #bullet class
 class Bullet:
-    def __init__(self, x, y,bullet_size, danoBala):
+    def __init__(self, x, y,bullet_size, danoBala, anguloBala):
+        self.anguloBala = anguloBala
         self.danoBala = danoBala
         self.image = pygame.image.load("spritesGT/1 pixelado.webp")  # Carregar imagem do jogador
         self.image = pygame.transform.scale(self.image, (bullet_size, bullet_size))  # Ajustar o tamanho da imagem
