@@ -81,6 +81,7 @@ def main():
     arma4 = armaAtiva(0.5,20, 15, 70, 5)
 
     armaAtual = arma1
+    arma='arma1'
 
 
     while running:      #LOOP DE RODAR
@@ -97,12 +98,17 @@ def main():
         #troca de armas
         if keys[pygame.K_0]:
             armaAtual = arma1
+            arma='arma1'
         elif keys[pygame.K_9]:
             armaAtual = arma2
+            arma='arma2'
+
         elif keys[pygame.K_8]:
             armaAtual = arma3
+            arma='arma3'
         elif keys[pygame.K_7]:
             armaAtual = arma4
+            arma='arma4'
         
 
         #movimento do player
@@ -113,7 +119,7 @@ def main():
 
         #Spawn de bullet
         keys = pygame.key.get_pressed()
-        var = armaAtual.shoot(keys, player.rect.centerx, player.rect.top, bullets)
+        var = armaAtual.shoot(keys, player.rect.centerx, player.rect.top, bullets, arma)
         if var is not None:
             bullets.append(var)
 
