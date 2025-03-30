@@ -1,4 +1,5 @@
 #Imports
+import time
 import pygame
 import random
 from moduloConfig import *
@@ -10,6 +11,7 @@ from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import desenhar
 from moduloColisão import ColisaoMapa
+from moduloVidaPlayer import vidaPlayer
 
 
 dano = 3000
@@ -64,6 +66,10 @@ def fase1():
     score = 0
     numeroNavin=0
     running = True
+    lastDmg = 0
+
+    vidaJogador = vidaPlayer()
+    vidaJogador.adicionarCoracao(3)
 
     arma1 = armaAtiva(0.5, 20, 21, 100, 1)
     arma2 = armaAtiva(0.0, 30, 10, 10, 1)
@@ -151,7 +157,7 @@ def fase1():
         #Desenho player, fundo, bullet
         screen.blit(background, (0, 0))  #
         screen.blit(player.image, player.rect)  
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida)
         printar
 
         #Score (ADD VIDA, ARMA, VIDA NAVIN)
@@ -160,9 +166,17 @@ def fase1():
         screen.blit(score_text, (10, 10))
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
+
+        currentTime = time.time()
+
         for projes in proj:
             if player.rect.colliderect(projes.rect):
-                game_over_screen(running)
+                if currentTime - lastDmg > 0.5:
+                    if len(vidaJogador.vida) > 1:
+                        vidaJogador.retirarCoracao(1)
+                    else:    
+                        game_over_screen(running)
+                    lastDmg = currentTime
 
 
         #Comando pygame (NAO TOQUE)
