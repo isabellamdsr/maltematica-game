@@ -2,7 +2,9 @@ import pygame
 from moduloColisão import ColisaoMapa
 
 class desenhar():
-    def __init__(self, screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, lista, player):
+    def __init__(self, screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, lista, player, vidaPlayer):
+        for coracao in vidaPlayer:
+            screen.blit(coracao.image, coracao.rect)
         for bullet in bullets:
             screen.blit(bullet.image, bullet.rect)
         for enemy in enemies:
