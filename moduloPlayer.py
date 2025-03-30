@@ -7,7 +7,12 @@ class Player:
         self.image = pygame.transform.scale(self.image, (player_size2, player_size))  # Ajustar o tamanho da imagem
         self.rect = self.image.get_rect(center=(WIDTH // 2, HEIGHT // 2))  # Usar o retângulo da imagem
 
-    def move(self, dx, dy, player_speed): 
-        self.rect.x += dx * player_speed    # Player andar em x
-        self.rect.y += dy * player_speed    # Player andar em y
-        self.rect.clamp_ip(150, 291, 1140, 453)  # Mantém o jogador dentro do local "andavel"
+    def move(self, dx, dy, player_speed, blocos): 
+        # Cria uma cópia do retângulo para testar a próxima posição
+        next_rect = self.rect.copy()
+        next_rect.x += dx * player_speed
+        next_rect.y += dy * player_speed
+        self.rect.clamp_ip(0, 0, 1440, 810)
+        # Testa colisão antes de mover
+        if not any(next_rect.colliderect(bloco) for bloco in blocos):
+            self.rect = next_rect  # Move apenas se não houver colisão

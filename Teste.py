@@ -9,6 +9,8 @@ from moduloEnemy import Enemy
 from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import desenhar
+from moduloColisão import ColisaoMapa
+
 
 dano = 3000
 
@@ -71,6 +73,15 @@ def fase1():
     armaAtual = arma1
     arma='arma1'
 
+    listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
+    (pygame.Rect(150, 0, 1140, 292)),
+    (pygame.Rect(1290, 0, 150, 810)),
+    (pygame.Rect(150, 744, 495, 292)),
+    (pygame.Rect(150, 1101, 165, 66)),
+    (pygame.Rect(795, 744, 495, 66)),
+    (pygame.Rect(-1, -1, 1440, 1)),
+    (pygame.Rect(0, 811, 1440, 1))]
+
     while running:      #LOOP DE RODAR
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -80,7 +91,7 @@ def fase1():
         keys = pygame.key.get_pressed()        #Teclas de movi do player
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
-        player.move(dx, dy, player_speed)
+        player.move(dx, dy, player_speed, listaBlocos)
 
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, arma1, arma2, arma3, arma4, armaAtual, arma)
@@ -111,7 +122,17 @@ def fase1():
                     proj.remove(projet)
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
-
+            listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
+                    (pygame.Rect(150, 0, 495, 292)),
+                    (pygame.Rect(795, 0, 495, 292)),
+                    (pygame.Rect(1290, 0, 150, 810)),
+                    (pygame.Rect(150, 744, 495, 292)),
+                    (pygame.Rect(150, 1101, 165, 66)),
+                    (pygame.Rect(795, 744, 495, 66)),
+                    (pygame.Rect(-1, -1, 1440, 1)),
+                    (pygame.Rect(0, 811, 1440, 1))
+                    ]
+    
         #Tick de animacao do navin
         if numeroNavin==30:
             numeroNavin=1
@@ -130,7 +151,7 @@ def fase1():
         #Desenho player, fundo, bullet
         screen.blit(background, (0, 0))  #
         screen.blit(player.image, player.rect)  
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player)
         printar
 
         #Score (ADD VIDA, ARMA, VIDA NAVIN)
@@ -143,12 +164,16 @@ def fase1():
             if player.rect.colliderect(projes.rect):
                 game_over_screen(running)
 
+
         #Comando pygame (NAO TOQUE)
         pygame.display.flip()
         numeroNavin+=3 #é 3 pq tem 4 imagens de navin
         clock.tick(30)
 
     #NAO TOQUE
+    pygame.quit()
+
+def fase2():
     pygame.quit()
 
 #NAO TOQUE
