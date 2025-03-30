@@ -32,3 +32,21 @@ class armaAtiva():
             bullet.move(self.bulletSpeed, bullet.anguloBala)
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
+
+    def escolha(keys, arma1, arma2, arma3, arma4, armaAtual, arma):
+        if keys[pygame.K_0]:
+            armaAtual = arma1
+            arma='arma1'
+        elif keys[pygame.K_9]:
+            armaAtual = arma2
+            arma='arma2'
+        elif keys[pygame.K_8]:
+            armaAtual = arma3
+            arma='arma3'
+        elif keys[pygame.K_7]:
+            armaAtual = arma4
+            arma='arma4'
+        else:
+            arma=arma
+            armaAtual=armaAtual
+        return arma, armaAtual

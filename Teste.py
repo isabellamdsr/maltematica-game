@@ -10,17 +10,7 @@ from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import desenhar
 
-#Comando pygame (NAO TOQUE)
-pygame.init()
-
-font = pygame.font.Font(None, 74)
-small_font = pygame.font.Font(None, 36)
-
-pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
-pygame.mixer.music.play(loops=-1)
-
 dano = 3000
-
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
@@ -53,17 +43,14 @@ def game_over_screen(rodando):
                     pygame.quit()
                     return
                 if event.key == pygame.K_SPACE:
-                    main()
+                    fase1()
                     return
-
-
+                
 # Main game loop
-def main():
+def fase1():
     # Carregar a imagem de fundo
     background = pygame.image.load("spritesGT/Map_1.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
-    
-
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
@@ -84,39 +71,19 @@ def main():
     armaAtual = arma1
     arma='arma1'
 
-
     while running:      #LOOP DE RODAR
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
     
-        
-
-        #Teclas de movi do player
-        keys = pygame.key.get_pressed()
-
-
         #movimento do player
+        keys = pygame.key.get_pressed()        #Teclas de movi do player
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
         player.move(dx, dy, player_speed)
 
-
         #troca de armas
-        if keys[pygame.K_0]:
-            armaAtual = arma1
-            arma='arma1'
-        elif keys[pygame.K_9]:
-            armaAtual = arma2
-            arma='arma2'
-
-        elif keys[pygame.K_8]:
-            armaAtual = arma3
-            arma='arma3'
-        elif keys[pygame.K_7]:
-            armaAtual = arma4
-            arma='arma4'
-        
+        arma, armaAtual=armaAtiva.escolha(keys, arma1, arma2, arma3, arma4, armaAtual, arma)
 
         #Spawn de bullet
         keys = pygame.key.get_pressed()
@@ -126,30 +93,6 @@ def main():
 
         #Movimento de bullet 
         armaAtual.bullet_movement(bullets)
-
-        
-
-        '''
-        #Spawn de enemies
-        if random.randint(1, 30000) == 1: 
-            enemies.append(Enemy())
-
-        #Movimento de enemies
-        for enemy in enemies[:]:
-            enemy.move()
-            if enemy.rect.top > HEIGHT:
-                enemies.remove(enemy)
-                score += 1 
-
-        #Colisão de enemies com bullet
-        for bullet in bullets[:]:
-            for enemy in enemies[:]:
-                if bullet.rect.colliderect(enemy.rect):
-                    bullets.remove(bullet)
-                    enemies.remove(enemy)
-                    score += 5  
-                    break
-        '''
 
         #Spawn nivan (NÃO TOQUE NESSA LIST)
         navins = []
@@ -176,7 +119,6 @@ def main():
             numeroNavin=2
         elif numeroNavin==32:
             numeroNavin=0
-
 
         #Colisão bullet com navin
         for bullet in bullets:
@@ -210,4 +152,4 @@ def main():
     pygame.quit()
 
 #NAO TOQUE
-main()
+fase1()

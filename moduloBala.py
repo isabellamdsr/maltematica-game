@@ -13,7 +13,7 @@ class Bullet:
         if arma=='arma2':
             self.image = pygame.image.load(naturaisLista[random.randint(0,9)])  # Carregar imagem do jogador
         if arma=='arma3':
-            self.image = pygame.image.load("spritesGT/1 pixelado.webp")  # Carregar imagem do jogador
+            self.image = pygame.image.load("spritesGT/weapon0.png")  # Carregar imagem do jogador
         if arma=='arma4':
             self.image = pygame.image.load("spritesGT/Naturais/0_5.png")  # Carregar imagem do jogador
             
