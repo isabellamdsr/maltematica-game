@@ -8,6 +8,7 @@ from moduloNAVIN import NAVIN
 from moduloEnemy import Enemy
 from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
+from moduloDesenho import desenhar
 
 #Comando pygame (NAO TOQUE)
 pygame.init()
@@ -95,6 +96,12 @@ def main():
         keys = pygame.key.get_pressed()
 
 
+        #movimento do player
+        dx = keys[pygame.K_d] - keys[pygame.K_a]
+        dy = keys[pygame.K_s] - keys[pygame.K_w]
+        player.move(dx, dy, player_speed)
+
+
         #troca de armas
         if keys[pygame.K_0]:
             armaAtual = arma1
@@ -111,12 +118,6 @@ def main():
             arma='arma4'
         
 
-        #movimento do player
-        dx = keys[pygame.K_d] - keys[pygame.K_a]
-        dy = keys[pygame.K_s] - keys[pygame.K_w]
-        player.move(dx, dy, player_speed)
-
-
         #Spawn de bullet
         keys = pygame.key.get_pressed()
         var = armaAtual.shoot(keys, player.rect.centerx, player.rect.top, bullets, arma)
@@ -128,6 +129,7 @@ def main():
 
         
 
+        '''
         #Spawn de enemies
         if random.randint(1, 30000) == 1: 
             enemies.append(Enemy())
@@ -147,6 +149,7 @@ def main():
                     enemies.remove(enemy)
                     score += 5  
                     break
+        '''
 
         #Spawn nivan (NÃO TOQUE NESSA LIST)
         navins = []
@@ -185,16 +188,8 @@ def main():
         #Desenho player, fundo, bullet
         screen.blit(background, (0, 0))  #
         screen.blit(player.image, player.rect)  
-        for bullet in bullets:
-            screen.blit(bullet.image, bullet.rect)
-        for enemy in enemies:
-            pygame.draw.rect(screen, BLACK, enemy.rect)
-        for nav in navins:
-            screen.blit(nav.image, nav.rect)
-        for projec in proj:
-            screen.blit(projec.image, projec.rect)
-        for vidas in vida:
-            pygame.draw.rect(screen, RED, vidas.rect)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida)
+        printar
 
         #Score (ADD VIDA, ARMA, VIDA NAVIN)
         font = pygame.font.Font(None, 36)
