@@ -12,6 +12,7 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import desenhar
 from moduloColisão import ColisaoMapa
 from moduloVidaPlayer import vidaPlayer
+from moduloVazio import Vazio
 
 
 dano = 3000
@@ -63,6 +64,7 @@ def fase1():
     bullets = []
     enemies = []
     proj = []
+    vazio=[]
     score = 0
     numeroNavin=0
     running = True
@@ -118,14 +120,30 @@ def fase1():
             navins.append(NAVIN(numeroNavin%3, navinLista))
             vida.append(barraDeVida(3000-dano))
             #Spawn projetil
-            if random.randint(1, 3) == 1:
+            if random.randint(1, 30) == 1 and len(vazio)<1:
+                tickSpawnVazio=pygame.time.get_ticks()
+                a=random.randint(1200, 2000)
+                vazio.append(Vazio(naturaisLista, WIDTH))
+            #Movimento de projetil
+            for projV in vazio:
+                projV.move()
+                if pygame.time.get_ticks() >= tickSpawnVazio+(a):
+                    explosao=pygame.Rect(projV.rect.x, projV.rect.y, 200, 200)
+                    if explosao.colliderect(player):
+                        if len(vidaJogador.vida) > 1:
+                            vidaJogador.retirarCoracao(1)
+                        else:    
+                            game_over_screen(running)
+                    vazio.remove(projV)
+                    
+            if random.randint(1, 5) == 1:
                 proj.append(Projetil(naturaisLista, WIDTH))
-
             #Movimento de projetil
             for projet in proj[:]:
                 projet.move()
-                if projet.rect.top > HEIGHT:
+                if projet.rect.y > HEIGHT:
                     proj.remove(projet)
+
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
             listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
@@ -157,7 +175,7 @@ def fase1():
         #Desenho player, fundo, bullet
         screen.blit(background, (0, 0))  #
         screen.blit(player.image, player.rect)  
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
         printar
 
         #Score (ADD VIDA, ARMA, VIDA NAVIN)
