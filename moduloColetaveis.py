@@ -7,7 +7,7 @@ class Coletavel: # coletar as armas que serão dropadas a cada final de fase
         self.image = pygame.transform.scale(self.image, (40, 40))
         self.rect = self.image.get_rect(center=(720, 290))
         self.coletou = False
-
+    
     def coleta(self,player, inventario, arma):
         if self.rect.colliderect(player) == False and self.coletou == False:
             screen.blit(self.image, self.rect)  
