@@ -16,3 +16,6 @@ class desenhar():
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
         ColisaoMapa.printar(lista, player)
+
+
+
