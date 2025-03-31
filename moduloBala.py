@@ -5,7 +5,8 @@ import random
 
 #bullet class
 class Bullet:
-    def __init__(self, x, y,bullet_size, danoBala, anguloBala, arma):
+    def __init__(self, x, y,bullet_size, danoBala, anguloBala, velocidadeBala, arma):
+        self.velocidadeBala = velocidadeBala
         self.anguloBala = anguloBala
         self.danoBala = danoBala
         if arma=='arma1':

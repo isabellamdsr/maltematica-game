@@ -21,7 +21,7 @@ class armaAtiva():
                                                                         #cooldown a arma atira, e declara o tempo do
                         self.lastAtk = currentTime                      # ultimo tiro
                         for i in range(self.qntBalas):
-                            bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i], arma))
+                            bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i], self.bulletSpeed, arma))
 
 
     def bullet_movement(self,bullets):
@@ -29,7 +29,7 @@ class armaAtiva():
         
 
         for bullet in bullets[:]:
-            bullet.move(self.bulletSpeed, bullet.anguloBala)
+            bullet.move(bullet.velocidadeBala, bullet.anguloBala)
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
 
