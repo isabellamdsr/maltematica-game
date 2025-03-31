@@ -21,7 +21,7 @@ class armaAtiva():
                                                                         #cooldown a arma atira, e declara o tempo do
                         self.lastAtk = currentTime                      # ultimo tiro
                         for i in range(self.qntBalas):
-                            bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i], arma))
+                            bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i], self.bulletSpeed, arma))
 
 
     def bullet_movement(self,bullets):
@@ -29,24 +29,25 @@ class armaAtiva():
         
 
         for bullet in bullets[:]:
-            bullet.move(self.bulletSpeed, bullet.anguloBala)
+            bullet.move(bullet.velocidadeBala, bullet.anguloBala)
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
 
-    def escolha(keys, arma1, arma2, arma3, arma4, armaAtual, arma):
+
+    def escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventarioArmas):
         if keys[pygame.K_0]:
-            armaAtual = arma1
-            arma='arma1'
+            armaAtual = pistola
+            arma='pistola'
         elif keys[pygame.K_9]:
-            armaAtual = arma2
-            arma='arma2'
+            if metralhadora in inventarioArmas:
+                armaAtual = metralhadora
+                arma='metralhadora'
         elif keys[pygame.K_8]:
-            armaAtual = arma3
-            arma='arma3'
+            if bazuca in inventarioArmas:
+                armaAtual = bazuca
+                arma='escopeta'
         elif keys[pygame.K_7]:
-            armaAtual = arma4
-            arma='arma4'
-        else:
-            arma=arma
-            armaAtual=armaAtual
+            if escopeta in inventarioArmas:
+                armaAtual = escopeta
+                arma='bazuca'
         return arma, armaAtual

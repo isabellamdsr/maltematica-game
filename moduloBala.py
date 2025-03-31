@@ -5,16 +5,17 @@ import random
 
 #bullet class
 class Bullet:
-    def __init__(self, x, y,bullet_size, danoBala, anguloBala, arma):
+    def __init__(self, x, y,bullet_size, danoBala, anguloBala, velocidadeBala, arma):
+        self.velocidadeBala = velocidadeBala
         self.anguloBala = anguloBala
         self.danoBala = danoBala
-        if arma=='arma1':
+        if arma=='pistola':
             self.image = pygame.image.load("spritesGT/1 pixelado.webp")  # Carregar imagem do jogador
-        if arma=='arma2':
+        if arma=='metralhadora':
             self.image = pygame.image.load(naturaisLista[random.randint(0,9)])  # Carregar imagem do jogador
-        if arma=='arma3':
+        if arma=='bazuca':
             self.image = pygame.image.load("spritesGT/weapon0.png")  # Carregar imagem do jogador
-        if arma=='arma4':
+        if arma=='escopeta':
             self.image = pygame.image.load("spritesGT/Naturais/0_5.png")  # Carregar imagem do jogador
             
         self.image = pygame.transform.scale(self.image, (bullet_size, bullet_size))  # Ajustar o tamanho da imagem

@@ -1,4 +1,5 @@
 #Imports
+import time
 import pygame
 import random
 from moduloConfig import *
@@ -8,11 +9,10 @@ from moduloNAVIN import NAVIN
 from moduloEnemy import Enemy
 from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
-from moduloDesenho import desenhar
+from moduloDesenho import *
 from moduloColisão import ColisaoMapa
-
-
-dano = 3000
+from moduloVidaPlayer import vidaPlayer
+from moduloColetaveis import *
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
@@ -56,7 +56,8 @@ def fase1():
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
-    dano = 3000     #vida do navin
+    dano = 3000      #vida do navin
+    
     #Lista de objetos moviveis gerados
     bullets = []
     enemies = []
@@ -64,14 +65,20 @@ def fase1():
     score = 0
     numeroNavin=0
     running = True
+    lastDmg = 0
 
-    arma1 = armaAtiva(0.5, 20, 21, 100, 1)
-    arma2 = armaAtiva(0.0, 30, 10, 10, 1)
-    arma3 = armaAtiva(2, 10, 70, 500, 1)
-    arma4 = armaAtiva(0.5,20, 15, 70, 5)
+    vidaJogador = vidaPlayer()
+    vidaJogador.adicionarCoracao(3)
 
-    armaAtual = arma1
-    arma='arma1'
+    pistola = armaAtiva(0.5, 20, 21, 100, 1)
+    metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
+    bazuca = armaAtiva(2, 10, 70, 500, 1)
+    escopeta = armaAtiva(0.5,20, 15, 70, 5)
+
+    armaAtual = pistola
+    arma = 'pistola'
+    inventorioArmas = [pistola]
+    proxArma = Metralhadora()
 
     listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
     (pygame.Rect(150, 0, 1140, 292)),
@@ -81,6 +88,7 @@ def fase1():
     (pygame.Rect(795, 744, 495, 66)),
     (pygame.Rect(-1, -1, 1440, 1)),
     (pygame.Rect(0, 811, 1440, 1))]
+
 
     while running:      #LOOP DE RODAR
         for event in pygame.event.get():
@@ -92,9 +100,6 @@ def fase1():
         dx = keys[pygame.K_d] - keys[pygame.K_a]
         dy = keys[pygame.K_s] - keys[pygame.K_w]
         player.move(dx, dy, player_speed, listaBlocos)
-
-        #troca de armas
-        arma, armaAtual=armaAtiva.escolha(keys, arma1, arma2, arma3, arma4, armaAtual, arma)
 
         #Spawn de bullet
         keys = pygame.key.get_pressed()
@@ -134,7 +139,7 @@ def fase1():
                     ]
     
         #Tick de animacao do navin
-        if numeroNavin==30:
+        if numeroNavin==30:  
             numeroNavin=1
         elif numeroNavin==31:
             numeroNavin=2
@@ -151,8 +156,14 @@ def fase1():
         #Desenho player, fundo, bullet
         screen.blit(background, (0, 0))  #
         screen.blit(player.image, player.rect)  
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida)
         printar
+        if dano <= 0:
+            proxArma.coleta(player, inventorioArmas, metralhadora)
+        
+        #troca de armas
+        arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
+        
 
         #Score (ADD VIDA, ARMA, VIDA NAVIN)
         font = pygame.font.Font(None, 36)
@@ -160,9 +171,17 @@ def fase1():
         screen.blit(score_text, (10, 10))
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
+
+        currentTime = time.time()
+
         for projes in proj:
             if player.rect.colliderect(projes.rect):
-                game_over_screen(running)
+                if currentTime - lastDmg > 0.5:
+                    if len(vidaJogador.vida) > 1:
+                        vidaJogador.retirarCoracao(1)
+                    else:    
+                        game_over_screen(running)
+                    lastDmg = currentTime
 
 
         #Comando pygame (NAO TOQUE)
