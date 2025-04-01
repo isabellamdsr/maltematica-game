@@ -14,5 +14,3 @@ class Projetil:
     def move(self):
         self.rect.y += projetil_speed #Projetil cai pro inferno
 
-    def moveVazio(self, HEIGHT):
-        self.rect.y += projetil_speed
