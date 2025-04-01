@@ -5,6 +5,7 @@ import random
 from moduloConfig import *
 from moduloPlayer import Player
 from moduloBarraDeVida import barraDeVida
+from moduloDesenhoVida import healthBar
 from moduloNAVIN import NAVIN
 from moduloEnemy import Enemy
 from moduloProjetil import Projetil
@@ -57,6 +58,7 @@ def fase1():
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
     dano = 3000      #vida do navin
+    health_bar = healthBar() # Load da barra de vida
     
     #Lista de objetos moviveis gerados
     bullets = []
@@ -158,6 +160,7 @@ def fase1():
         screen.blit(player.image, player.rect)  
         printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida)
         printar
+        health_bar.printar(screen) # Blit da barra de vida
         if dano <= 0:
             proxArma.coleta(player, inventorioArmas, metralhadora)
         
