@@ -75,6 +75,9 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
     armaAtual = pistola
     arma = 'pistola'
+    proxArma1 = Bazuca()
+    proxArma = Shotgun()
+
 
     listaBlocos = [(pygame.Rect(0, 0, 241, 810)), 
     (pygame.Rect(150, 0, 1140, 292)),
@@ -187,6 +190,9 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
         #Desenho player, fundo, bullet
         printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
         printar
+        if dano <= 0:
+            proxArma.coleta(player, inventorioArmas, escopeta)
+            proxArma1.coleta(player, inventorioArmas, metralhadora)
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)

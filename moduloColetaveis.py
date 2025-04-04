@@ -25,9 +25,20 @@ class Metralhadora(Coletavel): # drop da fase 1
         self.coletou = False
 
 class Bazuca(Coletavel):
-    bazucaImg = "spritesGT/weapon0.png"
-    pass
+    def __init__(self):
+        bazucaImg = "spritesGT/weapon0.png"        
+        super().__init__(bazucaImg)
+        self.image = pygame.image.load(bazucaImg) 
+        self.image = pygame.transform.scale(self.image, (40, 40))
+        self.rect = self.image.get_rect(center=(370, 315))
+        self.coletou = False
 
 class Shotgun(Coletavel): # drop da fase 2
-    shotgunImg = "spritesGT/weaponR1.png"
-    pass
+    def __init__(self):
+        shotgunImg = "spritesGT/weaponR1.png"      
+        super().__init__(shotgunImg)
+        self.image = pygame.image.load(shotgunImg) 
+        self.image = pygame.transform.scale(self.image, (40, 40))
+        self.rect = self.image.get_rect(center=(1073, 315))
+        self.coletou = False
+
