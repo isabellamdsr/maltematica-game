@@ -83,7 +83,7 @@ def fase1():
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
 
-    pistola = armaAtiva(0.5, 20, 21, 1000, 1)
+    pistola = armaAtiva(0.5, 20, 21, 100, 1)
     metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
     bazuca = armaAtiva(2, 10, 70, 500, 1)
     escopeta = armaAtiva(0.5,20, 15, 70, 5)
@@ -130,7 +130,7 @@ def fase1():
         navins = []
         vida =[]
         if dano > 0:
-            vida.append(barraDeVida(3000-dano))
+            vida.append(barraDeVida(3000-dano, 3000))
             #Spawn projetil
             if len(vazio)==1:
                 navinListaAtk=['spritesGT/navin_attack.png']
@@ -180,18 +180,13 @@ def fase1():
         #Desenho player, fundo, bullet
         printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
         printar
-        health_bar.printar(screen) # Blit da barra de vida
-        if dano <= 0:
+        if dano>0:
+            health_bar.printar(screen) # Blit da barra de vida
+        elif dano <= 0:
             proxArma.coleta(player, inventorioArmas, metralhadora)
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
-        
-
-        #Score (ADD VIDA, ARMA, VIDA NAVIN)
-        font = pygame.font.Font(None, 36)
-        score_text = font.render(f'Score: {score}', True, BLACK)
-        screen.blit(score_text, (10, 10))
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
 
