@@ -59,7 +59,7 @@ def fase1():
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
-    dano = 30       #vida do navin
+    dano = 3000       #vida do navin
     health_bar = healthBar() # Load da barra de vida
     
     #Lista de objetos moviveis gerados
