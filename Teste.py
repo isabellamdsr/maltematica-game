@@ -13,6 +13,7 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColisão import ColisaoMapa
 from moduloVidaPlayer import vidaPlayer
+from moduloVazio import Vazio
 from moduloColetaveis import *
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
@@ -64,6 +65,7 @@ def fase1():
     bullets = []
     enemies = []
     proj = []
+    vazio=[]
     score = 0
     numeroNavin=0
     running = True
@@ -97,6 +99,9 @@ def fase1():
             if event.type == pygame.QUIT:
                 running = False
     
+        screen.blit(background, (0, 0))  #
+        screen.blit(player.image, player.rect)  
+
         #movimento do player
         keys = pygame.key.get_pressed()        #Teclas de movi do player
         dx = keys[pygame.K_d] - keys[pygame.K_a]
@@ -116,19 +121,42 @@ def fase1():
         navins = []
         vida =[]
         if dano > 0:
-            navins.append(NAVIN(numeroNavin%3, navinLista))
             vida.append(barraDeVida(3000-dano))
             #Spawn projetil
-            if random.randint(1, 3) == 1:
+            if random.randint(1, 30) == 1 and len(vazio)<1:
+                tickSpawnVazio=pygame.time.get_ticks()
+                a=random.randint(1200, 2000)
+                vazio.append(Vazio(naturaisLista, WIDTH))
+            if len(vazio)==1:
+                navinListaAtk=['spritesGT/navin_attack.png']
+                numeroNavinAtk=0
+                navins.append(NAVIN(numeroNavinAtk, navinListaAtk))
+            else:            
+                navins.append(NAVIN(numeroNavin%3, navinLista))
+            #Movimento de projetil
+            for projV in vazio:
+                projV.moveVazio(tickSpawnVazio, a)
+                if pygame.time.get_ticks() >= tickSpawnVazio+(a):
+                    explosao=pygame.Rect(projV.rect.x-90, projV.rect.y-90, 200, 200)
+                    screen.blit(pygame.transform.scale((pygame.image.load('spritesGT/weaponN1.png')), (200, 200)), explosao)
+                    if pygame.time.get_ticks()>tickSpawnVazio+(a)+300:
+                        if explosao.colliderect(player):
+                            if len(vidaJogador.vida) > 1:
+                                vidaJogador.retirarCoracao(1)
+                            else:    
+                                game_over_screen(running)
+                        vazio.remove(projV)
+            if random.randint(1, 5) == 1:
                 proj.append(Projetil(naturaisLista, WIDTH))
-
             #Movimento de projetil
             for projet in proj[:]:
                 projet.move()
-                if projet.rect.top > HEIGHT:
+                if projet.rect.y > HEIGHT:
                     proj.remove(projet)
+
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
+            vazio=[]
             listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
                     (pygame.Rect(150, 0, 495, 292)),
                     (pygame.Rect(795, 0, 495, 292)),
@@ -139,6 +167,8 @@ def fase1():
                     (pygame.Rect(-1, -1, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))
                     ]
+            if player.rect.x>710 and player.rect.y<40:
+                fase2()
     
         #Tick de animacao do navin
         if numeroNavin==30:  
@@ -156,9 +186,7 @@ def fase1():
                     bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
-        screen.blit(background, (0, 0))  #
-        screen.blit(player.image, player.rect)  
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
         printar
         health_bar.printar(screen) # Blit da barra de vida
         if dano <= 0:
@@ -186,16 +214,12 @@ def fase1():
                         game_over_screen(running)
                     lastDmg = currentTime
 
-
         #Comando pygame (NAO TOQUE)
         pygame.display.flip()
         numeroNavin+=3 #é 3 pq tem 4 imagens de navin
         clock.tick(30)
 
     #NAO TOQUE
-    pygame.quit()
-
-def fase2():
     pygame.quit()
 
 #NAO TOQUE
