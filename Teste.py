@@ -16,8 +16,14 @@ from moduloVidaPlayer import vidaPlayer
 from moduloVazio import Vazio
 from moduloColetaveis import *
 
+pygame.mixer.Channel(1)#channel da musica
+pygame.mixer.Channel(4)#channel dos efeitos sonoros
+
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
+    pygame.mixer.music.pause()
+    gameOverSfx = pygame.mixer.Sound("sons/gameOver.mp3")
+    pygame.mixer.Channel(4).play(gameOverSfx)
     keys = pygame.key.get_pressed()
     screen.fill(BLACK)
         
@@ -47,6 +53,8 @@ def game_over_screen(rodando):
                     pygame.quit()
                     return
                 if event.key == pygame.K_SPACE:
+                    pygame.mixer.music.rewind()
+                    pygame.mixer.music.unpause()
                     fase1()
                     return
                 
@@ -78,6 +86,10 @@ def fase1():
     metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
     bazuca = armaAtiva(2, 10, 70, 500, 1)
     escopeta = armaAtiva(0.5,20, 15, 70, 5)
+    arma1 = armaAtiva(0.5, 20, 21, 100, 1)
+    arma2 = armaAtiva(0.0, 30, 10, 10, 1)
+    arma3 = armaAtiva(2, 10, 70, 500, 1)
+    arma4 = armaAtiva(0.5,20, 25, 70, 5)
 
     armaAtual = pistola
     arma = 'pistola'
