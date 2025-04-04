@@ -56,7 +56,7 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
-    dano = 3000      #vida do navin
+    dano = 5000      #vida do navin
     health_bar = healthBar() # Load da barra de vida
     
     #Lista de objetos moviveis gerados
@@ -117,8 +117,7 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
         navins = []
         vida =[]
         if dano > 0:
-            health_bar.printar(screen) # Blit da barra de vida 
-            vida.append(barraDeVida(3000-dano))
+            vida.append(barraDeVida(5000-dano, 5000))
             #Spawn projetil
             if random.randint(1, 30) == 1 and len(vazio)<1:
                 tickSpawnVazio=pygame.time.get_ticks()
@@ -189,7 +188,9 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
         #Desenho player, fundo, bullet
         printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
-        printar
+        printar        
+        if dano>0:
+            health_bar.printar(screen) # Blit da barra de vida
         if dano <= 0:
             proxArma.coleta(player, inventorioArmas, escopeta)
             proxArma1.coleta(player, inventorioArmas, bazuca)
