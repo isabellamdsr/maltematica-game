@@ -2,7 +2,7 @@ import pygame
 from moduloColisão import ColisaoMapa
 
 class desenhar():
-    def __init__(self, screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, lista, player, vidaPlayer):
+    def __init__(self, screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, lista, player, vidaPlayer, vazio):
         for coracao in vidaPlayer:
             screen.blit(coracao.image, coracao.rect)
         for bullet in bullets:
@@ -15,7 +15,6 @@ class desenhar():
             screen.blit(projec.image, projec.rect)
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
+        for projV in vazio:
+            screen.blit(projV.image, projV.rect)
         ColisaoMapa.printar(lista, player)
-
-
-

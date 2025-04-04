@@ -13,3 +13,4 @@ class Projetil:
     
     def move(self):
         self.rect.y += projetil_speed #Projetil cai pro inferno
+
