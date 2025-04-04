@@ -167,8 +167,8 @@ def fase1():
                     (pygame.Rect(-1, -1, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))
                     ]
-            if player.rect.x>710 and player.rect.y<40:
-                fase2()
+            #if player.rect.x>710 and player.rect.y<40:
+            #    fase2()
     
         #Tick de animacao do navin
         if numeroNavin==30:  
