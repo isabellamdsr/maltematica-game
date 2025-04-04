@@ -15,9 +15,7 @@ from moduloColisão import ColisaoMapa
 from moduloVidaPlayer import vidaPlayer
 from moduloVazio import Vazio
 from moduloColetaveis import *
-from fase2 import fase2
 
-#tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(rodando):
     keys = pygame.key.get_pressed()
     screen.fill(BLACK)
@@ -48,18 +46,17 @@ def game_over_screen(rodando):
                     pygame.quit()
                     return
                 if event.key == pygame.K_SPACE:
-                    fase1()
+                    fase2()
                     return
-                
-# Main game loop
-def fase1():
+
+def fase2():
     # Carregar a imagem de fundo
-    background = pygame.image.load("spritesGT/Map_1.png")
+    background = pygame.image.load("spritesGT/Map_2.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
-    dano = 30       #vida do navin
+    dano = 3000      #vida do navin
     health_bar = healthBar() # Load da barra de vida
     
     #Lista de objetos moviveis gerados
@@ -71,6 +68,7 @@ def fase1():
     numeroNavin=0
     running = True
     lastDmg = 0
+    x=['spritesGT/bombaVazio.png']
 
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
@@ -82,15 +80,15 @@ def fase1():
 
     armaAtual = pistola
     arma = 'pistola'
-    inventorioArmas = [pistola] 
-    proxArma = Metralhadora()
+    inventorioArmas = [pistola, metralhadora]
 
-    listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
+    listaBlocos = [(pygame.Rect(0, 0, 241, 810)), 
     (pygame.Rect(150, 0, 1140, 292)),
-    (pygame.Rect(1290, 0, 150, 810)),
-    (pygame.Rect(150, 744, 495, 292)),
-    (pygame.Rect(150, 1101, 165, 66)),
-    (pygame.Rect(795, 744, 495, 66)),
+    (pygame.Rect(1210, 0, 300, 810)),
+    (pygame.Rect(150, 720, 490, 292)),
+    (pygame.Rect(820, 720, 495, 90)),
+    (pygame.Rect(150, 1101, 165, 90)),
+    (pygame.Rect(518, 292, 413, 257)),
     (pygame.Rect(-1, -1, 1440, 1)),
     (pygame.Rect(0, 811, 1440, 1))]
 
@@ -122,14 +120,35 @@ def fase1():
         navins = []
         vida =[]
         if dano > 0:
+            health_bar.printar(screen) # Blit da barra de vida 
             vida.append(barraDeVida(3000-dano))
             #Spawn projetil
+            if random.randint(1, 30) == 1 and len(vazio)<1:
+                tickSpawnVazio=pygame.time.get_ticks()
+                a=random.randint(1200, 2000)
+                vazio.append(Vazio(x, WIDTH))
             if len(vazio)==1:
                 navinListaAtk=['spritesGT/navin_attack.png']
                 numeroNavinAtk=0
                 navins.append(NAVIN(numeroNavinAtk, navinListaAtk))
             else:            
                 navins.append(NAVIN(numeroNavin%3, navinLista))
+            #Movimento de projetil
+            for projV in vazio:
+                projV.printar(vazio)
+                expX=vazio[-1].rect.x-90
+                expY=vazio[-1].rect.y-90
+                projV.moveVazio(tickSpawnVazio, a)
+                if pygame.time.get_ticks() >= tickSpawnVazio+(a):
+                    explosao=pygame.Rect(expX, expY, 200, 200)
+                    screen.blit(pygame.transform.scale((pygame.image.load('spritesGT/Explosao.png')), (200, 200)), explosao)
+                    if pygame.time.get_ticks()>tickSpawnVazio+(a)+300:
+                        if explosao.colliderect(player):
+                            if len(vidaJogador.vida) > 1:
+                                vidaJogador.retirarCoracao(1)
+                            else:    
+                                game_over_screen(running)
+                        vazio.remove(projV)
             if random.randint(1, 5) == 1:
                 proj.append(Projetil(naturaisLista, WIDTH))
             #Movimento de projetil
@@ -141,18 +160,20 @@ def fase1():
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
             vazio=[]
-            listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
-                    (pygame.Rect(150, 0, 495, 292)),
-                    (pygame.Rect(795, 0, 495, 292)),
-                    (pygame.Rect(150, 744, 495, 292)),
-                    (pygame.Rect(1290, 0, 150, 810)),
-                    (pygame.Rect(150, 1101, 165, 66)),
-                    (pygame.Rect(795, 744, 495, 66)),
-                    (pygame.Rect(-1, -1, 1440, 1)),
-                    (pygame.Rect(0, 811, 1440, 1))
-                    ]
-            if player.rect.x>710 and player.rect.y<40:
-                   fase2()
+            listaBlocos = [(pygame.Rect(0, 0, 241, 810)), 
+                        (pygame.Rect(150, 0, 500, 292)),
+                        (pygame.Rect(795, 0, 495, 292)),
+                        (pygame.Rect(1210, 0, 300, 810)),
+                        (pygame.Rect(150, 720, 490, 292)),
+                        (pygame.Rect(820, 720, 495, 90)),
+                        (pygame.Rect(150, 1101, 165, 90)),
+                        (pygame.Rect(518, 292, 132, 257)),
+                        (pygame.Rect(795, 292, 136, 257)),
+                        (pygame.Rect(-1, 60, 1440, 1)),
+                        (pygame.Rect(0, 811, 1440, 1)),
+                        ]
+            #if player.rect.x>710 and player.rect.y<40:
+            #    fase2()
     
         #Tick de animacao do navin
         if numeroNavin==30:  
@@ -172,9 +193,6 @@ def fase1():
         #Desenho player, fundo, bullet
         printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
         printar
-        health_bar.printar(screen) # Blit da barra de vida
-        if dano <= 0:
-            proxArma.coleta(player, inventorioArmas, metralhadora)
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
@@ -205,6 +223,3 @@ def fase1():
 
     #NAO TOQUE
     pygame.quit()
-
-#NAO TOQUE
-fase1()

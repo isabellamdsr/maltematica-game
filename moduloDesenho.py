@@ -15,6 +15,4 @@ class desenhar():
             screen.blit(projec.image, projec.rect)
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
-        for projV in vazio:
-            screen.blit(projV.image, projV.rect)
         ColisaoMapa.printar(lista, player)
