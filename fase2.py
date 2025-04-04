@@ -49,7 +49,7 @@ def game_over_screen(rodando):
                     fase2()
                     return
 
-def fase2():
+def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     # Carregar a imagem de fundo
     background = pygame.image.load("spritesGT/Map_2.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
@@ -73,14 +73,8 @@ def fase2():
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
 
-    pistola = armaAtiva(0.5, 20, 21, 100, 1)
-    metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
-    bazuca = armaAtiva(2, 10, 70, 500, 1)
-    escopeta = armaAtiva(0.5,20, 15, 70, 5)
-
     armaAtual = pistola
     arma = 'pistola'
-    inventorioArmas = [pistola, metralhadora]
 
     listaBlocos = [(pygame.Rect(0, 0, 241, 810)), 
     (pygame.Rect(150, 0, 1140, 292)),

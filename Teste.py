@@ -87,10 +87,6 @@ def fase1():
     metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
     bazuca = armaAtiva(2, 10, 70, 500, 1)
     escopeta = armaAtiva(0.5,20, 15, 70, 5)
-    arma1 = armaAtiva(0.5, 20, 21, 100, 1)
-    arma2 = armaAtiva(0.0, 30, 10, 10, 1)
-    arma3 = armaAtiva(2, 10, 70, 500, 1)
-    arma4 = armaAtiva(0.5,20, 25, 70, 5)
 
     armaAtual = pistola
     arma = 'pistola'
@@ -164,7 +160,7 @@ def fase1():
                     (pygame.Rect(0, 811, 1440, 1))
                     ]
             if player.rect.x>710 and player.rect.y<40:
-                   fase2()
+                   fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
     
         #Tick de animacao do navin
         if numeroNavin==30:  
