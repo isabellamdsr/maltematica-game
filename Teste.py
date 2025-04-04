@@ -186,12 +186,6 @@ def fase1():
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
-        
-
-        #Score (ADD VIDA, ARMA, VIDA NAVIN)
-        font = pygame.font.Font(None, 36)
-        score_text = font.render(f'Score: {score}', True, BLACK)
-        screen.blit(score_text, (10, 10))
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
 
