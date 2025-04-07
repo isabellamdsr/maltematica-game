@@ -3,17 +3,12 @@ import time
 import pygame
 import random
 from moduloConfig import *
-from moduloPlayer import Player
-from moduloBarraDeVida import barraDeVida
-from moduloDesenhoVida import healthBar
+from moduloPlayer import Player, vidaPlayer
+from moduloBarraDeVida import barraDeVida, healthBar
 from moduloNAVIN import NAVIN
-from moduloEnemy import Enemy
-from moduloProjetil import Projetil
+from moduloProjetil import Projetil, Vazio
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
-from moduloColisão import ColisaoMapa
-from moduloVidaPlayer import vidaPlayer
-from moduloVazio import Vazio
 from moduloColetaveis import *
 
 def game_over_screen(rodando):

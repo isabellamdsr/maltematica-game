@@ -3,17 +3,12 @@ import time
 import pygame
 import random
 from moduloConfig import *
-from moduloPlayer import Player
-from moduloBarraDeVida import barraDeVida
-from moduloDesenhoVida import healthBar
+from moduloPlayer import Player, vidaPlayer
+from moduloBarraDeVida import barraDeVida, healthBar
 from moduloNAVIN import NAVIN
-from moduloEnemy import Enemy
 from moduloProjetil import Projetil
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
-from moduloColisão import ColisaoMapa
-from moduloVidaPlayer import vidaPlayer
-from moduloVazio import Vazio
 from moduloColetaveis import *
 from fase2 import fase2
 
@@ -159,7 +154,7 @@ def fase1():
                     (pygame.Rect(-1, -1, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))
                     ]
-            if player.rect.x>710 and player.rect.y<40:
+            if player.rect.x>650 and player.rect.y<40:
                    fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
     
         #Tick de animacao do navin
@@ -208,6 +203,3 @@ def fase1():
 
     #NAO TOQUE
     pygame.quit()
-
-#NAO TOQUE
-fase1()
