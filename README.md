@@ -23,8 +23,17 @@ O (Nome do Jogo) é um jogo 2D estilo top-down shooter, que consiste no controle
 - Arthur Jorge <a href="https://github.com/Arfhum">(GitHub)</a>
 ## ✏️ Organização do Projeto
 O código foi dividido em módulos para uma melhor organização:
-> especificações dos módulos
-
+- **Main:** Módulo principal que inicia o jogo. Por uma questão de organização, ele importa os módulos de cada fase do jogo;
+- **fase1:** Módulo que engloba outros módulos, definindo o funcionamento da primeira fase;
+- **fase2:** Módulo que engloba outros módulos, definindo o funcionamento da segunda fase;
+- **moduloConfig:** Contém as configurações fixas do jogo, como dimensões da tela, configurações da soundtrack e da parte gráfica;
+- **moduloDesenho:** Define uma classe de desenho para as imagens que aparecerão na tela;
+- **moduloPlayer:** Define a classe do jogador e contém os atributos a ele relacionados, como imagem, hitbox, vida e perda/recuperação de vida, métodos de movimentação e colisão;
+- **moduloColetaveis:** Define a classe dos coletáveis. Possui atributos de imagem (que deve sumir após o item ser coletado), identifição de colisão com o player e as especificações de cada item coletado;
+- **moduloBala:** Criação das balas de cada arma de ataque do player, definindo imagem, movimentação, ãngulo e dano;
+- **moduloArmaAtiva:** Módulo que "ativa" o funcionamento da arma atual, escolhida dependendo da tecla pressionada;
+- **moduloProjetil:** Módulo que contém os ataques do inimigo, definindo imagem e forma de ataque;
+- **moduloNAVIN:** Define as especificações do inimigo, como sua imagem, movimentação e dinãmica de dano tomado.
 
 ## 📚 Ferramentas Utilizadas
 - **Pygame** - Framework de desenvolvimento de jogos
