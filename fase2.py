@@ -5,7 +5,7 @@ import random
 from moduloConfig import *
 from moduloPlayer import Player, vidaPlayer
 from moduloBarraDeVida import barraDeVida, healthBar
-from moduloNAVIN import NAVIN
+from moduloNAVIN import Chefe
 from moduloProjetil import Projetil, Vazio
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
@@ -50,9 +50,12 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
 
     clock = pygame.time.Clock()
+    all_sprites = pygame.sprite.Group()
+    navin = Chefe((720, 150), all_sprites)
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
     dano = 5000      #vida do navin
     health_bar = healthBar() # Load da barra de vida
+    fase_atual = [1]
     
     #Lista de objetos moviveis gerados
     bullets = []
@@ -109,7 +112,6 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
         armaAtual.bullet_movement(bullets)
 
         #Spawn nivan (NÃO TOQUE NESSA LIST)
-        navins = []
         vida =[]
         if dano > 0:
             vida.append(barraDeVida(5000-dano, 5000))
@@ -121,9 +123,9 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
             if len(vazio)==1:
                 navinListaAtk=['spritesGT/navin_attack.png']
                 numeroNavinAtk=0
-                navins.append(NAVIN(numeroNavinAtk, navinListaAtk))
-            else:            
-                navins.append(NAVIN(numeroNavin%3, navinLista))
+            #     navins.append(NAVIN(numeroNavinAtk, navinListaAtk))
+            # else:            
+            #     navins.append(NAVIN(numeroNavin%3, navinLista))
             #Movimento de projetil
             for projV in vazio:
                 projV.printar(vazio)
@@ -148,9 +150,14 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                 if projet.rect.y > HEIGHT:
                     proj.remove(projet)
 
+            navin.update()
+            all_sprites.update()
+            all_sprites.draw(screen)
+
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
             vazio=[]
+            navin.kill()
             listaBlocos = [(pygame.Rect(0, 0, 241, 810)), 
                         (pygame.Rect(150, 0, 500, 292)),
                         (pygame.Rect(795, 0, 495, 292)),
@@ -166,23 +173,15 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
             #if player.rect.x>710 and player.rect.y<40:
             #    fase2()
     
-        #Tick de animacao do navin
-        if numeroNavin==30:  
-            numeroNavin=1
-        elif numeroNavin==31:
-            numeroNavin=2
-        elif numeroNavin==32:
-            numeroNavin=0
 
         #Colisão bullet com navin
         for bullet in bullets:
-            for navin in navins:
-                if bullet.rect.colliderect(navin.rect):
-                    dano -= bullet.danoBala
-                    bullets.remove(bullet)
+            if bullet.rect.colliderect(navin.rect):
+                dano -= bullet.danoBala
+                bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
         printar        
         if dano>0:
             health_bar.printar(screen) # Blit da barra de vida
@@ -206,9 +205,11 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                         game_over_screen(running)
                     lastDmg = currentTime
 
+        all_sprites.update()
+        all_sprites.draw(screen)
+
         #Comando pygame (NAO TOQUE)
         pygame.display.flip()
-        numeroNavin+=3 #é 3 pq tem 4 imagens de navin
         clock.tick(30)
 
     #NAO TOQUE
