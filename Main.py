@@ -1,10 +1,11 @@
 from fase1 import fase1
+from moduloTelaInicial import *
 
 #NAO TOQUE
-fase1()
+main_menu()
 
 
-# copiar isso pra testar só a fase2
+### copiar isso pra testar só a fase2 \/
 # from fase2 import fase2
 # from moduloArmaAtiva import armaAtiva
 # from moduloColetaveis import *
