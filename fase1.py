@@ -107,7 +107,7 @@ def fase1():
                 running = False
     
         screen.blit(background, (0, 0))  #
-        screen.blit(player.image, player.rect)  
+        #screen.blit(player.image, player.rect)  # Comentei pra dar o blit do player na função desenhar e não aqui. Apenas explicando se causar algum erro
 
         #movimento do player
         keys = pygame.key.get_pressed()        #Teclas de movi do player

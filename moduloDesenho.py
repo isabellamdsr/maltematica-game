@@ -12,3 +12,4 @@ class desenhar():
             screen.blit(projec.image, projec.rect)
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
+        screen.blit(player.image, player.rect)  
