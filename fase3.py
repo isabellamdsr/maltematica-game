@@ -3,28 +3,16 @@ import time
 import pygame
 import random
 from moduloConfig import *
-from moduloPlayer import Player
-from moduloBarraDeVida import barraDeVida
-from moduloDesenhoVida import healthBar
+from moduloPlayer import Player, vidaPlayer
+from moduloBarraDeVida import barraDeVida, healthBar
 from moduloNAVIN import NAVIN
-from moduloEnemy import Enemy
-from moduloProjetil import Projetil
+from moduloProjetil import Projetil, Vazio, Irra
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
-from moduloColisão import ColisaoMapa
-from moduloVidaPlayer import vidaPlayer
-from moduloVazio import Vazio
+from moduloVisualizacaoColetaveis import printColetaveis
 from moduloColetaveis import *
-from fase2 import fase2
 
-pygame.mixer.Channel(1)#channel da musica
-pygame.mixer.Channel(4)#channel dos efeitos sonoros
-
-#tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
-def game_over_screen(rodando):
-    pygame.mixer.music.pause()
-    gameOverSfx = pygame.mixer.Sound("sons/gameOver.mp3")
-    pygame.mixer.Channel(4).play(gameOverSfx)
+def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     keys = pygame.key.get_pressed()
     screen.fill(BLACK)
         
@@ -54,20 +42,17 @@ def game_over_screen(rodando):
                     pygame.quit()
                     return
                 if event.key == pygame.K_SPACE:
-                    pygame.mixer.music.rewind()
-                    pygame.mixer.music.unpause()
-                    fase1()
+                    fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
                     return
-                
-# Main game loop
-def fase1():
+
+def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     # Carregar a imagem de fundo
-    background = pygame.image.load("spritesGT/Map_1.png")
+    background = pygame.image.load("spritesGT/Map_3work.webp")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
 
     clock = pygame.time.Clock()
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
-    dano = 3000       #vida do navin
+    dano = 5000      #vida do navin
     health_bar = healthBar() # Load da barra de vida
     
     #Lista de objetos moviveis gerados
@@ -75,36 +60,28 @@ def fase1():
     enemies = []
     proj = []
     vazio=[]
-    score = 0
+    irra = []
     numeroNavin=0
     running = True
     lastDmg = 0
+    x=['spritesGT/bombaVazio.png']
 
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
 
-    pistola = armaAtiva(0.5, 20, 21, 100, 1)
-    metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
-    bazuca = armaAtiva(2, 10, 70, 500, 1)
-    escopeta = armaAtiva(0.5,20, 15, 70, 5)
-    arma1 = armaAtiva(0.5, 20, 21, 100, 1)
-    arma2 = armaAtiva(0.0, 30, 10, 10, 1)
-    arma3 = armaAtiva(2, 10, 70, 500, 1)
-    arma4 = armaAtiva(0.5,20, 25, 70, 5)
-
     armaAtual = pistola
     arma = 'pistola'
-    inventorioArmas = [pistola] 
-    proxArma = Metralhadora()
 
-    listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
-    (pygame.Rect(150, 0, 1140, 292)),
-    (pygame.Rect(1290, 0, 150, 810)),
-    (pygame.Rect(150, 744, 495, 292)),
-    (pygame.Rect(150, 1101, 165, 66)),
-    (pygame.Rect(795, 744, 495, 66)),
-    (pygame.Rect(-1, -1, 1440, 1)),
-    (pygame.Rect(0, 811, 1440, 1))]
+
+    listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
+                    (pygame.Rect(150, 0, 1140, 380)),
+                    (pygame.Rect(1270, 0, 300, 810)),
+                    (pygame.Rect(150, 790, 490, 100)),
+                    (pygame.Rect(820, 790, 495, 90)),
+                    (pygame.Rect(610, 375, 220, 170)),
+                    (pygame.Rect(610, 670, 220, 170)),
+                    (pygame.Rect(-1, -1, 1440, 1)),
+                    (pygame.Rect(0, 811, 1440, 1))]
 
 
     while running:      #LOOP DE RODAR
@@ -133,17 +110,72 @@ def fase1():
         #Spawn nivan (NÃO TOQUE NESSA LIST)
         navins = []
         vida =[]
-        if dano > 0:
-            vida.append(barraDeVida(3000-dano))
+        if dano > 0:    
+            listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
+                    (pygame.Rect(150, 0, 1140, 380)),
+                    (pygame.Rect(1270, 0, 300, 810)),
+                    (pygame.Rect(150, 790, 490, 100)),
+                    (pygame.Rect(820, 790, 495, 90)),
+                    (pygame.Rect(610, 375, 220, 170)),
+                    (pygame.Rect(610, 670, 220, 170)),
+                    (pygame.Rect(-1, -1, 1440, 1)),
+                    (pygame.Rect(0, 811, 1440, 1))]
+
+            vida.append(barraDeVida(5000-dano, 5000))
             #Spawn projetil
+            randomico=random.randint(1, 30)
+
+            if randomico == 1 and len(vazio)<1:
+                tickSpawnVazio=pygame.time.get_ticks()
+                a=random.randint(1200, 2000)
+                vazio.append(Vazio(x, WIDTH))
+
+            if  randomico == 2 and len(irra)<1:
+                tickSpawnIrra=pygame.time.get_ticks()
+                aleatorio=random.randint(1200, 2000)
+                irra.append(Irra(WIDTH))
+
             if len(vazio)==1:
                 navinListaAtk=['spritesGT/navin_attack.png']
                 numeroNavinAtk=0
                 navins.append(NAVIN(numeroNavinAtk, navinListaAtk))
             else:            
                 navins.append(NAVIN(numeroNavin%3, navinLista))
+
+            #Movimento de projetil
+            for projI in irra:
+                listaBlocos.append(projI.rect)
+                projI.printar(irra)
+                projI.moveIrra(tickSpawnIrra, aleatorio, player)
+                if pygame.time.get_ticks() >= tickSpawnIrra+(aleatorio)+3000:
+                    if projI.rect.colliderect(player):
+                        if len(vidaJogador.vida) > 1:
+                            vidaJogador.retirarCoracao(1)
+                        else:    
+                            game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
+                    irra.remove(projI)
+
+
+            #Movimento de projetil
+            for projV in vazio:
+                projV.printar(vazio)
+                expX=vazio[-1].rect.x-90
+                expY=vazio[-1].rect.y-90
+                projV.moveVazio(tickSpawnVazio, a)
+                if pygame.time.get_ticks() >= tickSpawnVazio+(a):
+                    explosao=pygame.Rect(expX, expY, 200, 200)
+                    screen.blit(pygame.transform.scale((pygame.image.load('spritesGT/Explosao.png')), (200, 200)), explosao)
+                    if pygame.time.get_ticks()>tickSpawnVazio+(a)+300:
+                        if explosao.colliderect(player):
+                            if len(vidaJogador.vida) > 1:
+                                vidaJogador.retirarCoracao(1)
+                            else:    
+                                game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
+                        vazio.remove(projV)
+
             if random.randint(1, 5) == 1:
                 proj.append(Projetil(naturaisLista, WIDTH))
+
             #Movimento de projetil
             for projet in proj[:]:
                 projet.move()
@@ -153,18 +185,17 @@ def fase1():
         elif dano<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
             vazio=[]
-            listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
-                    (pygame.Rect(150, 0, 495, 292)),
-                    (pygame.Rect(795, 0, 495, 292)),
-                    (pygame.Rect(150, 744, 495, 292)),
-                    (pygame.Rect(1290, 0, 150, 810)),
-                    (pygame.Rect(150, 1101, 165, 66)),
-                    (pygame.Rect(795, 744, 495, 66)),
+            listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
+                    (pygame.Rect(150, 0, 1140, 380)),
+                    (pygame.Rect(1270, 0, 300, 810)),
+                    (pygame.Rect(150, 790, 490, 100)),
+                    (pygame.Rect(820, 790, 495, 90)),
+                    (pygame.Rect(610, 375, 220, 170)),
+                    (pygame.Rect(610, 670, 220, 170)),
                     (pygame.Rect(-1, -1, 1440, 1)),
-                    (pygame.Rect(0, 811, 1440, 1))
-                    ]
-            if player.rect.x>710 and player.rect.y<40:
-                   fase2()
+                    (pygame.Rect(0, 811, 1440, 1))]
+
+
     
         #Tick de animacao do navin
         if numeroNavin==30:  
@@ -183,19 +214,13 @@ def fase1():
 
         #Desenho player, fundo, bullet
         printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, navins, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
-        printar
-        health_bar.printar(screen) # Blit da barra de vida
-        if dano <= 0:
-            proxArma.coleta(player, inventorioArmas, metralhadora)
+        printar        
+        if dano>0:
+            health_bar.printar(screen) # Blit da barra de vida
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
-        
-
-        #Score (ADD VIDA, ARMA, VIDA NAVIN)
-        font = pygame.font.Font(None, 36)
-        score_text = font.render(f'Score: {score}', True, BLACK)
-        screen.blit(score_text, (10, 10))
+        printColetaveis(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
 
@@ -207,7 +232,7 @@ def fase1():
                     if len(vidaJogador.vida) > 1:
                         vidaJogador.retirarCoracao(1)
                     else:    
-                        game_over_screen(running)
+                        game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
                     lastDmg = currentTime
 
         #Comando pygame (NAO TOQUE)
@@ -217,6 +242,3 @@ def fase1():
 
     #NAO TOQUE
     pygame.quit()
-
-#NAO TOQUE
-fase1()

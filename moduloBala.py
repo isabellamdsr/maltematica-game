@@ -14,9 +14,9 @@ class Bullet:
         if arma=='metralhadora':
             self.image = pygame.image.load(naturaisLista[random.randint(0,9)])  # Carregar imagem do jogador
         if arma=='bazuca':
-            self.image = pygame.image.load("spritesGT/weapon0.png")  # Carregar imagem do jogador
-        if arma=='escopeta':
             self.image = pygame.image.load("spritesGT/Naturais/0_5.png")  # Carregar imagem do jogador
+        if arma=='escopeta':
+            self.image = pygame.image.load("spritesGT/weapon0.png")  # Carregar imagem do jogador
             
         self.image = pygame.transform.scale(self.image, (bullet_size, bullet_size))  # Ajustar o tamanho da imagem
         self.rect = self.image.get_rect(center=(x, y))  # Usar o retângulo da imagem
