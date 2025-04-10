@@ -12,7 +12,7 @@ from moduloDesenho import *
 from moduloVisualizacaoColetaveis import printColetaveis
 from moduloColetaveis import *
 
-def game_over_screen(rodando):
+def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     keys = pygame.key.get_pressed()
     screen.fill(BLACK)
         
@@ -42,7 +42,7 @@ def game_over_screen(rodando):
                     pygame.quit()
                     return
                 if event.key == pygame.K_SPACE:
-                    fase3()
+                    fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
                     return
 
 def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
@@ -69,15 +69,9 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
 
-    pistola = armaAtiva(0.5, 20, 21, 10000, 1)
-    metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
-    bazuca = armaAtiva(2, 10, 70, 500, 1)
-    escopeta = armaAtiva(0.5,20, 15, 70, 5)
-
     armaAtual = pistola
     arma = 'pistola'
     proxArma1 = Bazuca()
-    inventorioArmas = [pistola] 
     proxArma = Shotgun()
 
 
@@ -211,7 +205,7 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                     if len(vidaJogador.vida) > 1:
                         vidaJogador.retirarCoracao(1)
                     else:    
-                        game_over_screen(running)
+                        game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
                     lastDmg = currentTime
 
         #Comando pygame (NAO TOQUE)
