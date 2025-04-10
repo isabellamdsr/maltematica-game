@@ -9,9 +9,8 @@ from moduloNAVIN import NAVIN
 from moduloProjetil import Projetil, Vazio
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
-from moduloColetaveis import *
 from moduloVisualizacaoColetaveis import printColetaveis
-from fase3 import fase3
+from moduloColetaveis import *
 
 def game_over_screen(rodando):
     keys = pygame.key.get_pressed()
@@ -43,12 +42,12 @@ def game_over_screen(rodando):
                     pygame.quit()
                     return
                 if event.key == pygame.K_SPACE:
-                    fase2()
+                    fase3()
                     return
 
-def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
+def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     # Carregar a imagem de fundo
-    background = pygame.image.load("spritesGT/Map_2.png")
+    background = pygame.image.load("spritesGT/Map_3work.webp")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
 
     clock = pygame.time.Clock()
@@ -70,21 +69,27 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
 
+    pistola = armaAtiva(0.5, 20, 21, 10000, 1)
+    metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
+    bazuca = armaAtiva(2, 10, 70, 500, 1)
+    escopeta = armaAtiva(0.5,20, 15, 70, 5)
+
     armaAtual = pistola
     arma = 'pistola'
     proxArma1 = Bazuca()
+    inventorioArmas = [pistola] 
     proxArma = Shotgun()
 
 
-    listaBlocos = [(pygame.Rect(0, 0, 241, 810)), 
-    (pygame.Rect(150, 0, 1140, 292)),
-    (pygame.Rect(1210, 0, 300, 810)),
-    (pygame.Rect(150, 720, 490, 292)),
-    (pygame.Rect(820, 720, 495, 90)),
-    (pygame.Rect(150, 1101, 165, 90)),
-    (pygame.Rect(518, 292, 413, 257)),
-    (pygame.Rect(-1, -1, 1440, 1)),
-    (pygame.Rect(0, 811, 1440, 1))]
+    listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
+                    (pygame.Rect(150, 0, 1140, 380)),
+                    (pygame.Rect(1270, 0, 300, 810)),
+                    (pygame.Rect(150, 790, 490, 100)),
+                    (pygame.Rect(820, 790, 495, 90)),
+                    (pygame.Rect(610, 375, 220, 170)),
+                    (pygame.Rect(610, 670, 220, 170)),
+                    (pygame.Rect(-1, -1, 1440, 1)),
+                    (pygame.Rect(0, 811, 1440, 1))]
 
 
     while running:      #LOOP DE RODAR
@@ -165,8 +170,8 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                         (pygame.Rect(-1, 60, 1440, 1)),
                         (pygame.Rect(0, 811, 1440, 1)),
                         ]
-            if player.rect.x>650 and player.rect.y<90:
-                fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
+            #if player.rect.x>710 and player.rect.y<40:
+            #    fase2()
     
         #Tick de animacao do navin
         if numeroNavin==30:  
@@ -195,7 +200,6 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
         printColetaveis(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
-
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
 

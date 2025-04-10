@@ -11,6 +11,7 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
 from fase2 import fase2
+from moduloVisualizacaoColetaveis import printColetaveis
 
 pygame.mixer.Channel(1)#channel da musica
 pygame.mixer.Channel(4)#channel dos efeitos sonoros
@@ -78,14 +79,14 @@ def fase1():
     vidaJogador = vidaPlayer()
     vidaJogador.adicionarCoracao(3)
 
-    pistola = armaAtiva(0.5, 20, 21, 100, 1)
+    pistola = armaAtiva(0.5, 20, 21, 10000, 1)
     metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
     bazuca = armaAtiva(2, 10, 70, 500, 1)
     escopeta = armaAtiva(0.5,20, 15, 70, 5)
 
     armaAtual = pistola
     arma = 'pistola'
-    inventorioArmas = [pistola] 
+    inventorioArmas = [pistola]
     proxArma = Metralhadora()
 
     listaBlocos = [(pygame.Rect(0, 0, 150, 810)), 
@@ -182,6 +183,7 @@ def fase1():
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
+        printColetaveis(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
 
         #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
 
