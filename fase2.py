@@ -204,9 +204,9 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                         game_over_screen(running)
                     lastDmg = currentTime
 
-        for attack in all_sprites: # Colisão do ataque em cone como player
-            if isinstance(attack, Ability):
-                if player.rect.colliderect(attack.rect):
+        for attack in all_sprites: # Pega todos os sprites com a instância 'Ability'
+            if isinstance(attack, Ability): 
+                if player.rect.colliderect(attack.rect): # Colisão do ataque em cone como player
                     if currentTime - lastDmg > 5: # Intervalo o suficiente para que o jogador não leve dano de projéteis consecutivos dentro do ataque
                             if len(vidaJogador.vida) > 1:
                                 vidaJogador.retirarCoracao(1)
