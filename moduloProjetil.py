@@ -42,7 +42,8 @@ class Ability(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (30, 30))
         self.rect = self.image.get_frect(midbottom = pos)
 
-    def shoot(pos, sprite_groups, num_projectiles = 7, spacing_vertical = 40, spacing_horizontal = 25, spacing_primeiro_projetil = 2):
+    def shoot(pos, sprite_groups, num_projectiles = 5, spacing_vertical = 40, spacing_horizontal = 25, spacing_primeiro_projetil = 6):
+
         # Linha vertical (|)
         for i in range(num_projectiles):
             y = pos[1] + i * spacing_vertical
@@ -53,20 +54,14 @@ class Ability(pygame.sprite.Sprite):
             x = pos[0] - (i + spacing_primeiro_projetil) * spacing_horizontal
             y = pos[1] + i * spacing_vertical
             Ability((x, y), sprite_groups)
-
+                                                                                          # A diferença entre os dois for's é que a esquerda diminui X e a direitaaumenta
         # Linha diagonal direita (\)
         for i in range(num_projectiles):
             x = pos[0] + (i + spacing_primeiro_projetil) * spacing_horizontal
             y = pos[1] + i * spacing_vertical
             Ability((x, y), sprite_groups)
 
-    def update(self):
-        self.rect.centery += 30
+    def update(self): 
+        self.rect.centery += 5 # O número é a velocidade do ataque
         if self.rect.top > HEIGHT:
             self.kill()
-        
-        # if self.rect.colliderect(self.player.rect):
-        #     if len(self.vida) > 1:
-        #                 self.vida.retirarCoracao(1)
-        #                 self.kill()
-        #                 print("funciona sim")

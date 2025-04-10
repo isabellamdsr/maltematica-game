@@ -6,7 +6,7 @@ from moduloConfig import *
 from moduloPlayer import Player, vidaPlayer
 from moduloBarraDeVida import barraDeVida, healthBar
 from moduloNAVIN import Chefe
-from moduloProjetil import Projetil
+from moduloProjetil import Projetil, Ability
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
@@ -66,7 +66,7 @@ def fase1():
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
     dano = 3000       #vida do navin
     health_bar = healthBar() # Load da barra de vida
-    fase_atual = [0]
+    fase_atual.append(1)
     
     #Lista de objetos moviveis gerados
     bullets = []

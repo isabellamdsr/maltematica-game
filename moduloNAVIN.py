@@ -15,7 +15,7 @@ class Chefe(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(center = pos)
 
         self.pos = pygame.Vector2(pos)
-        self.direcaoNavin = pygame.Vector2(1, 0)
+        self.direcaoNavin = pygame.Vector2(1, 0) # A direção só afeta o X do vetor, horizontal
         self.velocidadeNavin = 2
 
         self.ataque_cooldown = 1500
@@ -25,7 +25,7 @@ class Chefe(pygame.sprite.Sprite):
         self.frames = {'idle': [], 'ataque': []}
 
         for state in self.frames.keys():
-            for folder_path, sub_folders, file_names in walk(join('spritesGT', 'navin', state)):
+            for folder_path, sub_folders, file_names in walk(join('spritesGT', 'navin', state)): # Criação de cache pros sprites animados, peguei do canal do YouTube 'Clear Code'
                 if file_names:
                     for file_name in sorted(file_names, key = lambda name: int(name.split('.')[0])):
                         full_path = join(folder_path, file_name)
@@ -37,34 +37,34 @@ class Chefe(pygame.sprite.Sprite):
         if self.state == 'idle':
             self.rect.x += self.direcaoNavin.x * self.velocidadeNavin
             if self.rect.right > tela_largura or self.rect.left < 0:
-                self.direcaoNavin *= -1
+                self.direcaoNavin *= -1 # Navin começa o movimento pra esquerda caso chegue ao extremo direito da tela e vice-versa
 
     def animation(self):
 
-        self.frame_index += 0.2
+        self.frame_index += 0.2 # O número é a velocidade da transição dos frames do sprite
         self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
 
     def attack(self):
         tempo_atual = pygame.time.get_ticks()
 
-        if self.state == 'idle' and tempo_atual - self.ultimo_ataque >= 4000:
+        if self.state == 'idle' and tempo_atual - self.ultimo_ataque >= 4000: # 'Cooldown' do ataque, esse que era pra ser ataque_cooldown eu acho dps eu vejo isso
             self.state = 'ataque'
             self.original_rect = self.rect.copy()
             self.attack_start_time = tempo_atual
 
         if self.state == 'ataque':
             shake_offset = 5
-            self.rect.x = self.original_rect.x + random.randint(-shake_offset, shake_offset)
-            self.rect.y = self.original_rect.y + random.randint(-shake_offset, shake_offset)
+            self.rect.x = self.original_rect.x + random.randint(-shake_offset, shake_offset) # Navin treme para conjurar o ataque
+            self.rect.y = self.original_rect.y + random.randint(-shake_offset, shake_offset) # O randint é pra escolher um número entre -5 e 5 para mover os pixels de Navin em X ou Y
             
             if tempo_atual - self.attack_start_time >= self.ataque_cooldown:
                 self.state = 'idle'
                 self.ultimo_ataque = tempo_atual
                 self.rect = self.original_rect.copy()
-                Ability.shoot(self.rect.midtop, self.sprite_groups)
+                self.attacks = Ability.shoot(self.rect.midtop, self.sprite_groups)
 
     def update(self):
         self.animation()
-        if fase_atual == 2:
+        if 2 in fase_atual: # Chefe só ataca e move a partir da fase 2
             self.attack()
             self.movement(WIDTH)

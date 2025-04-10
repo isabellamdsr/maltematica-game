@@ -6,7 +6,7 @@ from moduloConfig import *
 from moduloPlayer import Player, vidaPlayer
 from moduloBarraDeVida import barraDeVida, healthBar
 from moduloNAVIN import Chefe
-from moduloProjetil import Projetil, Vazio
+from moduloProjetil import Projetil, Vazio, Ability
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
@@ -55,15 +55,15 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     player = Player(player_size2, player_size, WIDTH, HEIGHT)
     dano = 5000      #vida do navin
     health_bar = healthBar() # Load da barra de vida
-    fase_atual = [1]
+    fase_atual.append(2) # Criei a lista fase_atual dentro do Config
     
     #Lista de objetos moviveis gerados
     bullets = []
     enemies = []
     proj = []
     vazio=[]
-    score = 0
-    numeroNavin=0
+    score = 0 # Acho que pode deletar essa
+    numeroNavin=0 # Acho que pode deletar essa
     running = True
     lastDmg = 0
     x=['spritesGT/bombaVazio.png']
@@ -150,7 +150,6 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                 if projet.rect.y > HEIGHT:
                     proj.remove(projet)
 
-            navin.update()
             all_sprites.update()
             all_sprites.draw(screen)
 
@@ -205,12 +204,23 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                         game_over_screen(running)
                     lastDmg = currentTime
 
-        all_sprites.update()
-        all_sprites.draw(screen)
+        for attack in all_sprites: # Colisão do ataque em cone como player
+            if isinstance(attack, Ability):
+                if player.rect.colliderect(attack.rect):
+                    if currentTime - lastDmg > 5: # Intervalo o suficiente para que o jogador não leve dano de projéteis consecutivos dentro do ataque
+                            if len(vidaJogador.vida) > 1:
+                                vidaJogador.retirarCoracao(1)
+                            else:    
+                                game_over_screen(running)
+                            lastDmg = currentTime
+
 
         #Comando pygame (NAO TOQUE)
         pygame.display.flip()
         clock.tick(30)
+
+        all_sprites.update() # Talvez eu deva mudar o nome pra some_sprites... já que só tem os que eu fiz
+        all_sprites.draw(screen)
 
     #NAO TOQUE
     pygame.quit()
