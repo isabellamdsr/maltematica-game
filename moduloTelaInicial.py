@@ -80,6 +80,38 @@ def historiaInicio():
                     return
         pygame.display.flip()
 
+def controls():
+    while True:
+        pygame.display.set_caption('Menu')
+        screen.blit(background_inicial, (0, 0))
+        CONTROLS_MOUSE_POS = pygame.mouse.get_pos()
+
+        CONTROLS_TEXT = get_font(80, 'fonts/fontezinha.otf').render("Controles do jogo", True, "White")
+        OPTIONS_TEXT_RECT = CONTROLS_TEXT.get_rect(center=(WIDTH / 2, 100))
+
+        controls_texts = [CONTROLS_TEXT]
+        controls_rects = [OPTIONS_TEXT_RECT]
+
+        # This pairs each text with its corresponding rect
+        for i in range(len(controls_texts)):
+            screen.blit(controls_texts[i], controls_rects[i])
+
+        CONTROLS_BACK = Button(image=None, pos=(WIDTH / 2, 700), 
+                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+        
+        CONTROLS_BACK.changeColor(CONTROLS_MOUSE_POS)
+        CONTROLS_BACK.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if CONTROLS_BACK.checkForInput(CONTROLS_MOUSE_POS):
+                    main_menu()
+
+        pygame.display.flip()
+
+
 
 def play():
     historiaInicio()
@@ -113,14 +145,14 @@ def main_menu():
         PLAY = Button(image=None, pos=(WIDTH / 2, 340), 
                                 text_input="START GAME", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
-        # OPTIONS = Button(image=None, pos=(WIDTH / 2, 460), 
-        #                         text_input="OPTIONS", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
+        CONTROLS = Button(image=None, pos=(WIDTH / 2, 460), 
+                                text_input="CONTROLS", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         QUIT = Button(image=None, pos=(WIDTH / 2, 580), 
                                 text_input="QUIT", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
 
-        for button in [PLAY, QUIT]:
+        for button in [PLAY, CONTROLS, QUIT]:
             button.changeColor(menu_mouse_pos)
             button.update(screen)
 
@@ -134,6 +166,9 @@ def main_menu():
                 if PLAY.checkForInput(menu_mouse_pos):
                     done = True
                     play()
+                if CONTROLS.checkForInput(menu_mouse_pos):
+                    done = True
+                    controls()
                 if QUIT.checkForInput(menu_mouse_pos):
                     done = True
                     pygame.quit()
