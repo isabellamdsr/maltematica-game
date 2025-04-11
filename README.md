@@ -5,16 +5,21 @@ O Projeto da disciplina de Introdução à Programação do semestre 2024.2 cons
 
 O Maltemática é um jogo 2D estilo top-down shooter, que consiste no controle de um player, representado por um estudante de Matemática Discreta que precisa salvar seu professor Nivan. O jogo possui três fases, que são desbloqueadas após um combate contra Navin, um mago muito poderoso que sequestrou o professor e ataca o jogador com o poder da "matemática". A cada fase, uma nova arma é coletada, de forma que ela será guardada no inventario do player e poderá ser usada na próxima fase para derrotar Navin definitivamente e, assim, salvar Nivan dos absurdos matemáticos.
 
- ### 📷 **Galeria de Imagens**
+## 📌 Instalação e Execução
+Para executar o jogo é necessário instalar o [Python3](https://www.python.org/downloads/) e o [Pygame.](https://www.pygame.org/)
 
-**FASE 1**
-
-![FASE 1](https://i.ibb.co/q3qdmzyD/banana.png)
-
-
-**FASE 2**
-
-![FASE 2](https://i.ibb.co/XhDkCYs/ataques.png)
+- Para a instalação do Pygame, pode-se usar o comando:
+```sh
+pip install pygame
+```
+- Clone o repositório:
+```sh
+git clone https://github.com/DaviMatoso/IP-Project.git
+```
+- Execute o seguinte comando para iniciar o jogo:
+```sh
+python Main/main.py
+```
 
 ## 🖲️ Contribuidores e Funções
 - Davi Matoso <a href="https://github.com/DaviMatoso">(GitHub)</a>
@@ -71,6 +76,7 @@ O código foi dividido em módulos para uma melhor organização:
 - **Trello** - Gerenciamento de tarefas entre o grupo
 - **VSCode** - Editor de código-fonte
 
+### Justificativas:
 A biblioteca pygame foi escolhida por conter recursos que facilitaram o funcionamento do jogo de forma mais direta, possibilitando a integração efetiva entre os elementos escolhidos.
 Utilizamos o site <a href="https://www.pygame.org/docs/">*pygame.org*</a> como referência para a base do código e implementação das funções do jogo.
 
@@ -79,7 +85,7 @@ Utilizamos o site <a href="https://www.pygame.org/docs/">*pygame.org*</a> como r
 - **Condicionais:** Utilizadas com muita frequência durante o código, pois guiavam o que iria acontecer de acordo com a gameplay. Tinham muitas funcionalidades, como checar colisões entre o player e os projéteis e mapa, checar se as armas já foram coletadas para serem utilizadas, se a vida do inimigo estava zerada, etc.
 - **Loops:** Técnica utilizada para manter o código sempre atualizado, de acordo com a interação do jogador com o jogo.
 - **Listas:** Utilizamos como forma de armazenamento de elementos, como spritesheets e armas.
-- **Funções:** De extrema importância pro funcionamento do código, visto que as funções princiáis armazenavam as informações de cada fase e as demais o mantinham funcionando.
+- **Funções:** De extrema importância pro funcionamento do código, visto que as funções principais armazenavam as informações de cada fase e as demais o mantinham funcionando.
 
 ## 💡 Desafios e Lições Aprendidas
 - **Qual foi o maior erro cometido durante o projeto? Como vocês lidaram com ele?**
@@ -88,4 +94,14 @@ Utilizamos o site <a href="https://www.pygame.org/docs/">*pygame.org*</a> como r
   - O processo de produção coletiva do código, além da dificuldade em utilizar o Git/GitHub. Como nenhum dos integrantes do grupo possuia familiaridade com a plataforma, no início do projeto era comum que houvesse muito conflito entre o código que estava sendo trabalhado por cada pessoa, resultando em processos de merge mais trabalhosos e uma evolução mais lenta. O desafio foi superado por meio da comunicação entre o grupo: foi criado um grupo no Whatsapp para atualizar das mudanças que estavam sendo feitas no projeto, novas ideias e planejamento dos próximos passos. Além disso, reuniões entre o grupo no Discord e a interação com os monitores responsáveis foi essencial para um melhor direcionamento.
 - **Quais as lições aprendidas durante o projeto?**
   - Aprendizado de novas estratégias de organização de código, maior domínio dos conceitos de Programação Orientada a Objetos por meio de aulas, tutoriais e prática dentro do código, melhor dinâmica de trabalho em equipe e divisão de tarefas, através da colaboração e comunicação entre o grupo (fator fundamental para a evolução do projeto), contato com novas ferramentas, como o Aseprite (parte gráfica), Trello e Discord (organização e reuniões do grupo) e Git/GitHub (hospedagem e desenvolvimento do código)
-## 📌 Instalação e Execução
+
+## 📷 **Galeria de Imagens**
+
+**FASE 1**
+
+![FASE 1](https://i.ibb.co/q3qdmzyD/banana.png)
+
+
+**FASE 2**
+
+![FASE 2](https://i.ibb.co/XhDkCYs/ataques.png)
