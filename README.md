@@ -49,18 +49,24 @@ O código foi dividido em módulos para uma melhor organização:
 - **moduloBala:** Criação das balas de cada arma de ataque do player, definindo imagem, movimentação, velocidade, ângulo e dano;
 - **moduloArmaAtiva:** Módulo que "ativa" o funcionamento da arma atual, escolhida dependendo da tecla do teclado pressionada;
 - **moduloProjetil:** Módulo que contém os ataques do inimigo (projéteis que caem em direção ao chão e podem acertar o player, explosão em área), definindo imagem e especificações do ataque utilizado;
-- **moduloNAVIN:** Define as especificações do inimigo, como sua imagem, movimentação e dinãmica de dano tomado.
+- **moduloNAVIN:** Define as especificações do inimigo, como sua imagem, movimentação e dinâmica de dano tomado.
 
 ## 📚 Ferramentas Utilizadas
 - **Pygame** - Framework de desenvolvimento de jogos
 - **Aseprite** - Criação e animação de cenários e elementos gráficos
 - **FL Studio** - Produção da soundtrack do jogo
 - **Trello** - Gerenciamento de tarefas entre o grupo
+- **VSCode** - Editor de código-fonte
 
 A biblioteca pygame foi escolhida por conter recursos que facilitaram o funcionamento do jogo de forma mais direta, possibilitando a integração efetiva entre os elementos escolhidos.
 Utilizamos o site <a href="https://www.pygame.org/docs/">*pygame.org*</a> como referência para a base do código e implementação das funções do jogo.
 
 ## 🔍 Conceitos Aplicados
+- **Programação Orientada a Objetos e Herança:** Utilizamos os conceitos vistos em POO em basicamente todos os módulos. Foram criadas classes para o player, inimigo, coletáveis, etc (cada um com seus próprios atributos e métodos). Objetos que se repetiam em seu funcionamento, como os coletáveis, utilizaram conceitos de herança. Dessa forma, vimos a importância do POO projetos maiores como esse jogo, facilitando a organização e o compartilhamento de caracteristícas comuns.
+- **Condicionais:** Utilizadas com muita frequência durante o código, pois guiavam o que iria acontecer de acordo com a gameplay. Tinham muitas funcionalidades, como checar colisões entre o player e os projéteis e mapa, checar se as armas já foram coletadas para serem utilizadas, se a vida do inimigo estava zerada, etc.
+- **Loops:** Técnica utilizada para manter o código sempre atualizado, de acordo com a interação do jogador com o jogo.
+- **Listas:** Utilizamos como forma de armazenamento de elementos, como spritesheets e armas.
+- **Funções:** De extrema importância pro funcionamento do código, visto que as funções princiáis armazenavam as informações de cada fase e as demais o mantinham funcionando.
 
 ## 💡 Desafios e Lições Aprendidas
 - **Qual foi o maior erro cometido durante o projeto? Como vocês lidaram com ele?**
