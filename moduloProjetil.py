@@ -40,7 +40,7 @@ class Ability(pygame.sprite.Sprite):
         super().__init__(sprite_groups)
         self.image = pygame.image.load(naturaisLista[random.randint(0, 9)]).convert_alpha()
         self.image = pygame.transform.scale(self.image, (30, 30))
-        self.rect = self.image.get_frect(midbottom = pos)
+        self.rect = self.image.get_rect(midbottom = pos)
 
     def shoot(pos, sprite_groups, num_projectiles = 5, spacing_vertical = 40, spacing_horizontal = 25, spacing_primeiro_projetil = 6):
 

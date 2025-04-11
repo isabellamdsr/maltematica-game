@@ -12,7 +12,7 @@ class Chefe(pygame.sprite.Sprite):
         self.sprite_groups = sprite_groups
         self.state, self.frame_index = 'idle', 0
         self.image = pygame.image.load(join('spritesGT', 'navin', 'idle', '0.png')).convert_alpha()
-        self.rect = self.image.get_frect(center = pos)
+        self.rect = self.image.get_rect(center = pos)
 
         self.pos = pygame.Vector2(pos)
         self.direcaoNavin = pygame.Vector2(1, 0) # A direção só afeta o X do vetor, horizontal
