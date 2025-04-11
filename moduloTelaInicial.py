@@ -88,6 +88,8 @@ def controls():
 
         CONTROLS_TEXT = get_font(80, 'fonts/fontezinha.otf').render("Controles do jogo", True, "White")
         OPTIONS_TEXT_RECT = CONTROLS_TEXT.get_rect(center=(WIDTH / 2, 100))
+        CONTROLS_IMG = pygame.image.load("spritesGT/controls.png")
+        screen.blit(CONTROLS_IMG, (350,183))
 
         controls_texts = [CONTROLS_TEXT]
         controls_rects = [OPTIONS_TEXT_RECT]
@@ -97,7 +99,7 @@ def controls():
             screen.blit(controls_texts[i], controls_rects[i])
 
         CONTROLS_BACK = Button(image=None, pos=(WIDTH / 2, 700), 
-                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         CONTROLS_BACK.changeColor(CONTROLS_MOUSE_POS)
         CONTROLS_BACK.update(screen)
