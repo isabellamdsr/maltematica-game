@@ -16,16 +16,23 @@ class Button():
         self.rect = self.image.get_rect(center=(self.pos.x, self.pos.y))
         self.text_rect = self.text.get_rect(center=(self.pos.x, self.pos.y))
 
+        self.hover_sound = pygame.mixer.Sound('sons/trocaBotao.wav') # Pretendo usar isso depois
+
     def update(self, screen):
         if self.image is not None:
             screen.blit(self.image, self.rect)
         screen.blit(self.text, self.text_rect)
+
+        if hasattr(self, 'chave_esquerda') and self.chave_esquerda is not None:
+            screen.blit(self.chave_esquerda, self.chave_esquerda_rect)
+    
+        if hasattr(self, 'chave_direita') and self.chave_direita is not None:
+            screen.blit(self.chave_direita, self.chave_direita_rect)
     
     def checkForInput(self, pos):
         if (self.rect.left <= pos[0] < self.rect.right and
             self.rect.top <= pos[1] < self.rect.bottom):
             self.text = self.font.render(self.text_input, True, self.hovering_color)
-            print("teste print botão")
             return True
         return False
                                                                                  
@@ -33,8 +40,19 @@ class Button():
         if (self.rect.left <= pos[0] < self.rect.right and
             self.rect.top <= pos[1] < self.rect.bottom):
             self.text = self.font.render(self.text_input, True, self.hovering_color)
+            self.chave_esquerda = self.font.render("{", False, self.hovering_color)
+            self.chave_esquerda_rect = self.chave_esquerda.get_rect()
+            self.chave_esquerda_rect.right = self.text_rect.left - 5
+            self.chave_esquerda_rect.centery = self.text_rect.centery - 5
+            
+            self.chave_direita = self.font.render("}", False, self.hovering_color)
+            self.chave_direita_rect = self.chave_direita.get_rect()
+            self.chave_direita_rect.left = self.text_rect.right + 5
+            self.chave_direita_rect.centery = self.text_rect.centery - 5
         else:
             self.text = self.font.render(self.text_input, True, self.base_color)
+            self.chave_esquerda = None
+            self.chave_direita = None 
 
 def get_font(size, font_file):
     return pygame.font.Font(font_file, size)
@@ -50,7 +68,7 @@ def help():
         screen.blit(HELP_TEXT, HELP_TEXT_RECT)
 
         HELP_BACK = Button(image=None, pos=(WIDTH / 2, 400), 
-                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         HELP_BACK.changeColor(HELP_MOUSE_POS)
         HELP_BACK.update(screen)
@@ -88,7 +106,7 @@ def options():
             screen.blit(option_texts[i], option_rects[i])
 
         OPTIONS_BACK = Button(image=None, pos=(WIDTH / 2, 700), 
-                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                            text_input="BACK", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(screen)
@@ -132,16 +150,16 @@ def main_menu():
 
 
         PLAY = Button(image=None, pos=(WIDTH / 2, 340), 
-                                text_input="START GAME", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                                text_input="START GAME", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         OPTIONS = Button(image=None, pos=(WIDTH / 2, 460), 
-                                text_input="OPTIONS", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                                text_input="OPTIONS", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         HELP = Button(image=None, pos=(WIDTH / 2, 580), 
-                                text_input="HELP", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                                text_input="HELP", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
         QUIT = Button(image=None, pos=(WIDTH / 2, 700), 
-                                text_input="QUIT", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="Green")
+                                text_input="QUIT", font=get_font(75, 'fonts/fontezinha.otf'), base_color="White", hovering_color="White")
         
 
         for button in [PLAY, OPTIONS, HELP, QUIT]:
