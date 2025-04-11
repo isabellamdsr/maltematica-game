@@ -241,7 +241,7 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
         for attack in all_sprites: # Pega todos os sprites com a instância 'Ability'
             if isinstance(attack, Ability): 
-                if player.rect.colliderect(attack.rect): # Colisão do ataque em cone como player
+                if player.rect.colliderect(attack.rect) and dano > 0: # Colisão do ataque em cone como player
                     if currentTime - lastDmg > 5: # Intervalo o suficiente para que o jogador não leve dano de projéteis consecutivos dentro do ataque
                             if len(vidaJogador.vida) > 1:
                                 vidaJogador.retirarCoracao(1)

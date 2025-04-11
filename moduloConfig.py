@@ -11,7 +11,7 @@ fase_atual = [] # Adicionei para gerenciar as mecânicas do Navin, em cada fase 
 background_inicial = pygame.image.load('spritesGT/Background_Inicial.png')
 
 pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
-pygame.mixer.music.play(loops=-1)
+# pygame.mixer.music.play(loops=-1)
 
 #Tela 
 WIDTH, HEIGHT = 1440, 810
