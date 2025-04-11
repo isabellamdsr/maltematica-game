@@ -104,11 +104,11 @@ O Aseprite foi escolhido pois possui propriedades que facilitaram a produção d
 
 ### FASE 1
 
-![FASE 1](https://i.ibb.co/q3qdmzyD/banana.png)
+![FASE 1](https://i.ibb.co/jkKT6xSd/Screenshot-2.png)
 
 ### FASE 2
 
-![FASE 2](https://i.ibb.co/XhDkCYs/ataques.png)
+![FASE 2](https://i.ibb.co/p6QjLDy8/Screenshot-3.png)
 
 ### FASE3
-![FASE 3](https://i.ibb.co/mrgFJdVh/Screenshot-2025-04-11-111142.png)
+![FASE 3](https://i.ibb.co/8LDrY1G3/Screenshot-4.png)
