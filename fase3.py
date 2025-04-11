@@ -227,6 +227,7 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                     else:    
                         game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
                     lastDmg = currentTime
+                    proj.remove(projes)
 
         for attack in all_sprites: # Pega todos os sprites com a instância 'Ability'
             if isinstance(attack, Ability): 

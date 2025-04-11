@@ -148,7 +148,6 @@ def fase1():
         elif vidaNavin<=0:  #Condicional de navin derrotado
             #apaga com os projeteis qnd navin morre
             proj=[]
-            vazio=[]
             navin.kill()
             listaBlocos = [(pygame.Rect(0, 0, 150, 810)),   #Lista de blocos de colisão após navin morrer
                     (pygame.Rect(150, 0, 495, 292)),
@@ -187,6 +186,7 @@ def fase1():
                     else:    
                         game_over_screen(running)
                     lastDmg = currentTime
+                    proj.remove(projes)
 
         pygame.display.flip()
         clock.tick(30)
