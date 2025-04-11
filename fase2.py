@@ -182,10 +182,10 @@ def fase2(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                 bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
-        printar        
         if dano>0:
             health_bar.printar(screen) # Blit da barra de vida
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
+        printar        
         if dano <= 0:
             proxArma.coleta(player, inventorioArmas, escopeta)
             proxArma1.coleta(player, inventorioArmas, bazuca)

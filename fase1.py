@@ -172,11 +172,12 @@ def fase1():
                 bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
-        printar
         if dano>0:
             health_bar.printar(screen) # Blit da barra de vida
-        elif dano <= 0:
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
+        printar
+        
+        if dano <= 0:
             proxArma.coleta(player, inventorioArmas, metralhadora)
         
         #troca de armas

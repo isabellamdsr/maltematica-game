@@ -217,10 +217,10 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                 bullets.remove(bullet)
 
         #Desenho player, fundo, bullet
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
-        printar        
         if dano>0:
             health_bar.printar(screen) # Blit da barra de vida
+        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
+        printar        
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
