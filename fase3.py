@@ -9,7 +9,6 @@ from moduloNAVIN import Chefe
 from moduloProjetil import Projetil, Vazio, Ability, Irra
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
-from moduloVisualizacaoColetaveis import printColetaveis
 from moduloColetaveis import *
 
 def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):

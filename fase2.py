@@ -10,7 +10,6 @@ from moduloProjetil import Projetil, Vazio, Ability
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
-from moduloVisualizacaoColetaveis import printColetaveis
 from fase3 import fase3
 
 def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
