@@ -4,7 +4,7 @@ from moduloConfig import *
 def historiaFinal():
     screen = pygame.display.set_mode((WIDTH, HEIGHT)) 
      
-    background = pygame.image.load("spritesGT/TelaInicial.png")
+    background = pygame.image.load("spritesGT/telafinal.png")
     screen.blit(background, (0, 0))
     
     clock = pygame.time.Clock()
