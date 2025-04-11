@@ -11,3 +11,9 @@ class desenhar():
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
         screen.blit(player.image, player.rect)  
+
+class escada:
+    def __init__(self):
+        self.image = pygame.image.load("spritesGT/escada.png")  # Carregar imagem do contorno
+        self.image = pygame.transform.scale(self.image, (93, 246))  # Ajustar o tamanho da imagem
+        self.rect = self.image.get_rect(center=(380, 300))  # Usar o retângulo da imagem

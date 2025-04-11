@@ -59,7 +59,6 @@ def get_font(size, font_file):
 
 def historiaInicio():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption('Menu')  
      
     background = pygame.image.load("spritesGT/TelaInicial.png")
     screen.blit(background, (0, 0))
@@ -213,3 +212,5 @@ def main_menu():
                     pygame.quit()
 
         pygame.display.flip()
+
+        

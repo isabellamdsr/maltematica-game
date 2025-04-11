@@ -10,6 +10,7 @@ from moduloProjetil import Projetil, Vazio, Ability, Irra
 from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
+from moduloTelaFinal import historiaFinal
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
@@ -200,6 +201,11 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                     (pygame.Rect(610, 670, 220, 170)),
                     (pygame.Rect(-1, 100, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))]
+            escada()
+            screen.blit(escada().image, escada().rect)
+
+            if player.rect.x>320 and player.rect.y<170:      #Ida para fase2
+                   historiaFinal()
 
         #Desenhos
         printar=desenhar(screen, RED, bullets, proj, vida, player, vidaJogador.vida)
