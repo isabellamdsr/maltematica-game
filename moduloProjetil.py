@@ -66,7 +66,7 @@ class Ability(pygame.sprite.Sprite):
             self.kill()
 class Irra: # arma de dano em área do Navin
     def __init__(self, WIDTH):
-        self.image = pygame.image.load('spritesGT/evisoExplosao.png')  # Carregar imagem do jogador
+        self.image = pygame.image.load('spritesGT/ataqueEspecialPi-export.png')  # Carregar imagem do jogador
         self.image = pygame.transform.scale(self.image, (30, 300))  # Ajustar o tamanho da imagem
         self.rect = self.image.get_rect(center=(random.randint(165, WIDTH - 200), 0))  # Usar o retângulo da imagem
     
