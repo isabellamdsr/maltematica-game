@@ -19,7 +19,7 @@ cd IP-Project
 ```
 - Execute o seguinte comando para iniciar o jogo:
 ```sh
-python Main/main.py
+python3 Main.py
 ```
 
 ## 🖲️ Contribuidores e Funções
