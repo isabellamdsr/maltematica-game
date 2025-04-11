@@ -7,7 +7,9 @@ O Projeto da disciplina de Introdução à Programação do semestre 2024.2 cons
 O (Nome do Jogo) é um jogo 2D estilo top-down shooter, que consiste no controle de um player, representado por um estudante de Matemática Discreta que precisa salvar seu professor Nivan. O jogo possui três fases, que são desbloqueadas após um combate contra Navin, um mago muito poderoso que sequestrou o professor e ataca o jogador com o poder da "matemática". A cada fase, uma nova arma é coletada, de forma que ela será guardada no inventario do player e poderá ser usada na próxima fase para derrotar Navin definitivamente e, assim, salvar Nivan dos absurdos matemáticos.
 
 **Galeria de imagens**
-![FASE 1](https://i.ibb.co/0ynmGL0Q/Fase1-Maltem-tica.png)
+
+**FASE 1**
+![FASE 1](i.imgur.com/ghGQ6kP.png)
 
 ## 🖲️ Contribuidores e Funções
 - Davi Matoso <a href="https://github.com/DaviMatoso">(GitHub)</a>
