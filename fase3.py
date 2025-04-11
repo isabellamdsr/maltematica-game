@@ -46,7 +46,7 @@ def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
 def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     # Carregar a imagem de fundo
-    background = pygame.image.load("spritesGT/Map_3work.webp")
+    background = pygame.image.load("spritesGT/Map_3.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Ajustar o tamanho da imagem do fundo
 
     clock = pygame.time.Clock()
