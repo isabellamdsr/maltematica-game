@@ -78,7 +78,7 @@ def fase1():
     vidaJogador = vidaPlayer()      #Estabelece vida inicial do jogador
     vidaJogador.adicionarCoracao(3)
 
-    pistola = armaAtiva(0.5, 20, 21, 10000, 1)        #Estabelece parametros das armas
+    pistola = armaAtiva(0.5, 20, 21, 100, 1)        #Estabelece parametros das armas
     metralhadora = armaAtiva(0.0, 30, 10, 10, 1)
     bazuca = armaAtiva(2, 10, 70, 500, 1)
     escopeta = armaAtiva(0.5,20, 15, 70, 5)
