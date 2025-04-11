@@ -64,6 +64,16 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     vazio=[]
     irra = []
 
+    listaBlocos = [(pygame.Rect(0, 0, 165, 810)),       #Lista com blocos de colisao
+            (pygame.Rect(150, 0, 1140, 380)),
+            (pygame.Rect(1270, 0, 300, 810)),
+            (pygame.Rect(150, 790, 490, 100)),
+            (pygame.Rect(820, 790, 495, 90)),
+            (pygame.Rect(610, 375, 220, 170)),
+            (pygame.Rect(610, 670, 220, 170)),
+            (pygame.Rect(-1, -1, 1440, 1)),
+            (pygame.Rect(0, 811, 1440, 1))]
+
     running = True
     lastDmg = 0
 
@@ -181,13 +191,14 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
             irra=[]
             navin.kill()    #Apago de sprites
             listaBlocos = [(pygame.Rect(0, 0, 165, 810)),    #Lista de blocos após a derrota de navin
-                    (pygame.Rect(150, 0, 1140, 380)),
+                    (pygame.Rect(150, 0, 180, 380)),
+                    (pygame.Rect(430 , 0, 1000, 380)),
                     (pygame.Rect(1270, 0, 300, 810)),
                     (pygame.Rect(150, 790, 490, 100)),
                     (pygame.Rect(820, 790, 495, 90)),
                     (pygame.Rect(610, 375, 220, 170)),
                     (pygame.Rect(610, 670, 220, 170)),
-                    (pygame.Rect(-1, -1, 1440, 1)),
+                    (pygame.Rect(-1, 100, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))]
 
         #Desenhos
