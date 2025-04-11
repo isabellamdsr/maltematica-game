@@ -32,7 +32,6 @@ class Chefe(pygame.sprite.Sprite):
                         surf = pygame.image.load(full_path).convert_alpha()
                         self.frames[state].append(surf)
 
-
     def movement(self, tela_largura):
         if self.state == 'idle':
             self.rect.x += self.direcaoNavin.x * self.velocidadeNavin
@@ -40,7 +39,6 @@ class Chefe(pygame.sprite.Sprite):
                 self.direcaoNavin *= -1 # Navin começa o movimento pra esquerda caso chegue ao extremo direito da tela e vice-versa
 
     def animation(self):
-
         self.frame_index += 0.2 # O número é a velocidade da transição dos frames do sprite
         self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
 

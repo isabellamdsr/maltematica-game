@@ -12,16 +12,12 @@ class armaAtiva():
         self.lastAtk = 0    #tempo do ultimo tiro com a arma
         self.TiroSfx = pygame.mixer.Sound("sons/tiroPlayer.mp3")
         
-
-
     def shoot(self,keys , playerX, playerY, bullets, arma):
             currentTime = time.time()
             anguloBala = [90, 75, 105, 60, 120]
 
             if keys[pygame.K_SPACE]:
-                    if currentTime - self.lastAtk >= self.cooldown:     #se o tempo entre os tiros for maior que o 
-                                                                        #cooldown a arma atira, e declara o tempo do
-                        
+                    if currentTime - self.lastAtk >= self.cooldown:     #se o tempo entre os tiros for maior que o cooldown a arma atira, e declara o tempo do
                         self.lastAtk = currentTime                      # ultimo tiro
                         for i in range(self.qntBalas):
                             if i == 0:
@@ -29,17 +25,12 @@ class armaAtiva():
                                 pygame.mixer.Channel(4).play(self.TiroSfx)
                             bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i], self.bulletSpeed, arma))
                         
-                             
-
     def bullet_movement(self,bullets):
         #Movimento de bullet
-        
-
         for bullet in bullets[:]:
             bullet.move(bullet.velocidadeBala, bullet.anguloBala)
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
-
 
     def escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventarioArmas):
         if keys[pygame.K_0]:

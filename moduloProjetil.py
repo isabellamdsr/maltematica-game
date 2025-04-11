@@ -1,7 +1,6 @@
 import pygame
 import random
 from moduloConfig import *
-from moduloPlayer import Player, vidaPlayer
 
 
 class Projetil:
@@ -14,8 +13,8 @@ class Projetil:
         self.rect.y += projetil_speed #Projetil cai pro inferno
 
 class Vazio: # arma de dano em área do Navin
-    def __init__(self, x, WIDTH):
-        self.image = pygame.image.load(x[0])  # Carregar imagem do jogador
+    def __init__(self, WIDTH):
+        self.image = pygame.image.load('spritesGT/bombaVazio.png')  # Carregar imagem do jogador
         self.image = pygame.transform.scale(self.image, (60, 60))  # Ajustar o tamanho da imagem
         self.rect = self.image.get_rect(center=(random.randint(150, WIDTH - 160), 0))  # Usar o retângulo da imagem
     
@@ -25,7 +24,7 @@ class Vazio: # arma de dano em área do Navin
 
     def moveVazio(self, tickSpawnVazio, a):
         if pygame.time.get_ticks() < tickSpawnVazio+(a):
-            self.rect.y += projetil_speed
+            self.rect.y += 10
 
 class explosao:
     def __init__(self, x, y):

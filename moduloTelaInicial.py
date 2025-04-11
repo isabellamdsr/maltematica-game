@@ -166,9 +166,7 @@ def main_menu():
             button.changeColor(menu_mouse_pos)
             button.update(screen)
 
-
         clock.tick(60)
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -11,6 +11,7 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
 
+#tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
     keys = pygame.key.get_pressed()
     screen.fill(BLACK)
@@ -51,39 +52,26 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
-    navin = Chefe((720, 150), all_sprites)
-    player = Player(player_size2, player_size, WIDTH, HEIGHT)
-    dano = 5000      #vida do navin
+    navin = Chefe((720, 150), all_sprites)      #Classe do navin
+    player = Player(player_size2, player_size, WIDTH, HEIGHT)   #Classe player
+    vidaNavin = 7000      #vida do navin
     health_bar = healthBar() # Load da barra de vida
     fase_atual.append(3) # Criei a lista fase_atual dentro do Config
     
     #Lista de objetos moviveis gerados
     bullets = []
-    enemies = []
     proj = []
     vazio=[]
     irra = []
+
     running = True
     lastDmg = 0
-    x=['spritesGT/bombaVazio.png']
 
-    vidaJogador = vidaPlayer()
+    vidaJogador = vidaPlayer()      #Estabelece vida inicial do jogador
     vidaJogador.adicionarCoracao(3)
 
-    armaAtual = pistola
+    armaAtual = pistola        #Definições de armas (atuais e equipadas)
     arma = 'pistola'
-
-
-    listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
-                    (pygame.Rect(150, 0, 1140, 380)),
-                    (pygame.Rect(1270, 0, 300, 810)),
-                    (pygame.Rect(150, 790, 490, 100)),
-                    (pygame.Rect(820, 790, 495, 90)),
-                    (pygame.Rect(610, 375, 220, 170)),
-                    (pygame.Rect(610, 670, 220, 170)),
-                    (pygame.Rect(-1, -1, 1440, 1)),
-                    (pygame.Rect(0, 811, 1440, 1))]
-
 
     while running:      #LOOP DE RODAR
         for event in pygame.event.get():
@@ -108,10 +96,13 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
         #Movimento de bullet 
         armaAtual.bullet_movement(bullets)
 
-        #Spawn nivan (NÃO TOQUE NESSA LIST)
+        #Spawn nivan
         vida =[]
-        if dano > 0:    
-            listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
+        if vidaNavin > 0:    
+            vida.append(barraDeVida(7000-vidaNavin, 7000))
+
+            #Lista com blocos de colisão (usados para a funcionalidade do projetil 3)
+            listaBlocos = [(pygame.Rect(0, 0, 165, 810)),
                     (pygame.Rect(150, 0, 1140, 380)),
                     (pygame.Rect(1270, 0, 300, 810)),
                     (pygame.Rect(150, 790, 490, 100)),
@@ -121,42 +112,31 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                     (pygame.Rect(-1, -1, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))]
 
-            vida.append(barraDeVida(5000-dano, 5000))
-            #Spawn projetil
             randomico=random.randint(1, 30)
 
+            #Spawn projetil 1
+            if random.randint(1, 5) == 1:
+                proj.append(Projetil(naturaisLista, WIDTH))
+
+            #Spawn projetil 2
             if randomico == 1 and len(vazio)<1:
                 tickSpawnVazio=pygame.time.get_ticks()
                 a=random.randint(1200, 2000)
-                vazio.append(Vazio(x, WIDTH))
+                vazio.append(Vazio(WIDTH))
 
+            #Spawn projetil 3
             if  randomico == 2 and len(irra)<1:
                 tickSpawnIrra=pygame.time.get_ticks()
                 aleatorio=random.randint(1200, 2000)
                 irra.append(Irra(WIDTH))
 
-            # if len(vazio)==1:
-            #     navinListaAtk=['spritesGT/navin_attack.png']
-            #     numeroNavinAtk=0
-            #     navins.append(NAVIN(numeroNavinAtk, navinListaAtk))
-            # else:            
-            #     navins.append(NAVIN(numeroNavin%3, navinLista))
+            #Movimento de projetil 1
+            for projet in proj[:]:
+                projet.move()
+                if projet.rect.y > HEIGHT:
+                    proj.remove(projet)
 
-            #Movimento de projetil
-            for projI in irra:
-                listaBlocos.append(projI.rect)
-                projI.printar(irra)
-                projI.moveIrra(tickSpawnIrra, aleatorio, player)
-                if pygame.time.get_ticks() >= tickSpawnIrra+(aleatorio)+3000:
-                    if projI.rect.colliderect(player):
-                        if len(vidaJogador.vida) > 1:
-                            vidaJogador.retirarCoracao(1)
-                        else:    
-                            game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
-                    irra.remove(projI)
-
-
-            #Movimento de projetil
+            #Movimento de projetil 2
             for projV in vazio:
                 projV.printar(vazio)
                 expX=vazio[-1].rect.x-90
@@ -173,23 +153,34 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                                 game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
                         vazio.remove(projV)
 
-            if random.randint(1, 5) == 1:
-                proj.append(Projetil(naturaisLista, WIDTH))
+            #Movimento de projetil 3
+            for projI in irra:
+                listaBlocos.append(projI.rect)
+                projI.printar(irra)
+                projI.moveIrra(tickSpawnIrra, aleatorio, player)
+                if pygame.time.get_ticks() >= tickSpawnIrra+(aleatorio)+3000:
+                    if projI.rect.colliderect(player):
+                        if len(vidaJogador.vida) > 1:
+                            vidaJogador.retirarCoracao(1)
+                        else:    
+                            game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
+                    irra.remove(projI)
 
-            #Movimento de projetil
-            for projet in proj[:]:
-                projet.move()
-                if projet.rect.y > HEIGHT:
-                    proj.remove(projet)
+            #Colisão bullet com navin
+            for bullet in bullets:
+                if bullet.rect.colliderect(navin.rect):
+                    vidaNavin -= bullet.danoBala
+                    bullets.remove(bullet)
 
             all_sprites.update()
             all_sprites.draw(screen)
 
-        elif dano<=0:   #apaga com os projeteis qnd navin morre
+        elif vidaNavin<=0:   #apaga com os projeteis qnd navin morre
             proj=[]
             vazio=[]
-            navin.kill()
-            listaBlocos = [(pygame.Rect(0, 0, 165, 810)), 
+            irra=[]
+            navin.kill()    #Apago de sprites
+            listaBlocos = [(pygame.Rect(0, 0, 165, 810)),    #Lista de blocos após a derrota de navin
                     (pygame.Rect(150, 0, 1140, 380)),
                     (pygame.Rect(1270, 0, 300, 810)),
                     (pygame.Rect(150, 790, 490, 100)),
@@ -199,33 +190,15 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
                     (pygame.Rect(-1, -1, 1440, 1)),
                     (pygame.Rect(0, 811, 1440, 1))]
 
-
-    
-        # #Tick de animacao do navin
-        # if numeroNavin==30:  
-        #     numeroNavin=1
-        # elif numeroNavin==31:
-        #     numeroNavin=2
-        # elif numeroNavin==32:
-        #     numeroNavin=0
-
-        #Colisão bullet com navin
-        for bullet in bullets:
-            if bullet.rect.colliderect(navin.rect):
-                dano -= bullet.danoBala
-                bullets.remove(bullet)
-
-        #Desenho player, fundo, bullet
-        if dano>0:
-            health_bar.printar(screen) # Blit da barra de vida
-        printar=desenhar(screen, BLACK, RED, WHITE, bullets, enemies, proj, vida, listaBlocos, player, vidaJogador.vida, vazio)
+        #Desenhos
+        printar=desenhar(screen, RED, bullets, proj, vida, player, vidaJogador.vida)
         printar        
+        if vidaNavin>0:
+            health_bar.printar(screen) # Blit da barra de vida
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)
         printColetaveis(inventorioArmas, pistola, metralhadora, bazuca, escopeta)
-
-        #Tela de gameover (cogitar sistema de vida no lugar do hit kill)
 
         currentTime = time.time()
 
@@ -240,17 +213,15 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
 
         for attack in all_sprites: # Pega todos os sprites com a instância 'Ability'
             if isinstance(attack, Ability): 
-                if player.rect.colliderect(attack.rect) and dano > 0: # Colisão do ataque em cone como player
+                if player.rect.colliderect(attack.rect) and vidaNavin > 0: # Colisão do ataque em cone como player
                     if currentTime - lastDmg > 5: # Intervalo o suficiente para que o jogador não leve dano de projéteis consecutivos dentro do ataque
                             if len(vidaJogador.vida) > 1:
                                 vidaJogador.retirarCoracao(1)
                             else:    
                                 game_over_screen(running)
                             lastDmg = currentTime
-        #Comando pygame (NAO TOQUE)
+
         pygame.display.flip()
-        # numeroNavin+=3 #é 3 pq tem 4 imagens de navin
         clock.tick(30)
 
-    #NAO TOQUE
     pygame.quit()

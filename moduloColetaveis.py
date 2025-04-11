@@ -24,7 +24,7 @@ class Metralhadora(Coletavel): # drop da fase 1
         self.rect = self.image.get_rect(center=(720, 290))
         self.coletou = False
 
-class Bazuca(Coletavel):
+class Bazuca(Coletavel): # drop da fase 2
     def __init__(self):
         bazucaImg = "spritesGT/weapon0.png"        
         super().__init__(bazucaImg)
@@ -42,6 +42,7 @@ class Shotgun(Coletavel): # drop da fase 2
         self.rect = self.image.get_rect(center=(1073, 315))
         self.coletou = False
 
+# Definição de objetos mostrados na tela após a coleta
 class iconePistola():
     def __init__(self):
         self.image = pygame.image.load("spritesGT/weapon1.png")

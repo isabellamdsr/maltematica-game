@@ -3,13 +3,16 @@ import pygame
 #Comando pygame (NAO TOQUE)
 pygame.init()
 
+#Fontes
 font = pygame.font.Font(None, 74)
 small_font = pygame.font.Font(None, 36)
 
 fase_atual = [] # Adicionei para gerenciar as mecânicas do Navin, em cada fase nova dá append com o número da fase
 
+#Tela inicial
 background_inicial = pygame.image.load('spritesGT/Background_Inicial.png')
 
+#Musica
 pygame.mixer.music.load("soundtrack/SoundtrackJogo.mpga")
 pygame.mixer.music.play(loops=-1)
 
