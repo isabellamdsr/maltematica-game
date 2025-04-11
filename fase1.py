@@ -11,6 +11,7 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
 from fase2 import fase2
+from moduloBarraDeVida import nome
 
 pygame.mixer.Channel(1)#channel da musica
 pygame.mixer.Channel(4)#channel dos efeitos sonoros
@@ -71,7 +72,6 @@ def fase1():
     #Lista de objetos moviveis gerados nessa fase
     bullets = []
     proj = []
-    vazio=[]
     running = True
     lastDmg = 0
 
@@ -103,8 +103,7 @@ def fase1():
             if event.type == pygame.QUIT:
                 running = False
     
-        screen.blit(background, (0, 0))  #
-        #screen.blit(player.image, player.rect)  # Comentei pra dar o blit do player na função desenhar e não aqui. Apenas explicando se causar algum erro
+        screen.blit(background, (0, 0))  #backgroudn
 
         #movimento do player
         keys = pygame.key.get_pressed()        #Teclas de movi do player
@@ -170,6 +169,8 @@ def fase1():
         printar
         if vidaNavin>0:
             health_bar.printar(screen) # Blit da barra de vida
+            screen.blit(nome().image, nome().rect)  
+
         
         #troca de armas
         arma, armaAtual=armaAtiva.escolha(keys, pistola, metralhadora, bazuca, escopeta, armaAtual, arma, inventorioArmas)

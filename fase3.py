@@ -11,6 +11,7 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
 from moduloTelaFinal import historiaFinal
+from moduloBarraDeVida import nome
 
 #tela de gameover (sera completamente alterado quando o sprite de tela de gameover for inserido)
 def game_over_screen(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
@@ -89,8 +90,7 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
             if event.type == pygame.QUIT:
                 running = False
     
-        screen.blit(background, (0, 0))  #
-        #screen.blit(player.image, player.rect)  # Comentei pra dar o blit do player na função desenhar e não aqui. Apenas explicando se causar algum erro
+        screen.blit(background, (0, 0))  #background
 
         #movimento do player
         keys = pygame.key.get_pressed()        #Teclas de movi do player
@@ -211,6 +211,7 @@ def fase3(inventorioArmas, pistola, metralhadora, bazuca, escopeta):
         printar=desenhar(screen, RED, bullets, proj, vida, player, vidaJogador.vida)
         printar        
         if vidaNavin>0:
+            screen.blit(nome().image, nome().rect)  
             health_bar.printar(screen) # Blit da barra de vida
         
         #troca de armas

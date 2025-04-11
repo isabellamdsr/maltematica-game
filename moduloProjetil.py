@@ -53,7 +53,7 @@ class Ability(pygame.sprite.Sprite):
             x = pos[0] - (i + spacing_primeiro_projetil) * spacing_horizontal
             y = pos[1] + i * spacing_vertical
             Ability((x, y), sprite_groups)
-                                                                                          # A diferença entre os dois for's é que a esquerda diminui X e a direitaaumenta
+            
         # Linha diagonal direita (\)
         for i in range(num_projectiles):
             x = pos[0] + (i + spacing_primeiro_projetil) * spacing_horizontal
@@ -64,6 +64,7 @@ class Ability(pygame.sprite.Sprite):
         self.rect.centery += 5 # O número é a velocidade do ataque
         if self.rect.top > HEIGHT:
             self.kill()
+
 class Irra: # arma de dano em área do Navin
     def __init__(self, WIDTH):
         self.image = pygame.image.load('spritesGT/ataqueEspecialPi-export.png')  # Carregar imagem do jogador
@@ -75,6 +76,5 @@ class Irra: # arma de dano em área do Navin
             screen.blit(projV.image, projV.rect)
 
     def moveIrra(self, tickSpawnIrra, aleatorio, player):
-
         if pygame.time.get_ticks() < tickSpawnIrra+(aleatorio) and self.rect.colliderect(player)==False:
             self.rect.y += 9

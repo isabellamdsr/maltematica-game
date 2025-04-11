@@ -13,3 +13,10 @@ class healthBar:
     
     def printar(self, screen):
         screen.blit(self.image, self.rect)
+
+class nome:
+    def __init__(self):
+        self.image = pygame.image.load("spritesGT/NomeNavin.png") # Carregar imagem do contorno
+        self.image = pygame.transform.scale(self.image, (700, 45))  # Ajustar o tamanho da imagem
+        self.rect = self.image.get_rect(center=(717, 710))  # Usar o retângulo da imagem
+        

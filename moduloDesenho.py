@@ -8,9 +8,9 @@ class desenhar():
             screen.blit(bullet.image, bullet.rect)
         for projec in proj:
             screen.blit(projec.image, projec.rect)
+        screen.blit(player.image, player.rect)  
         for vidas in vida:
             pygame.draw.rect(screen, RED, vidas.rect)
-        screen.blit(player.image, player.rect)  
 
 class escada:
     def __init__(self):
