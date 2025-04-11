@@ -15,6 +15,7 @@ pip install pygame
 - Clone o repositório:
 ```sh
 git clone https://github.com/DaviMatoso/IP-Project.git
+cd IP-Project
 ```
 - Execute o seguinte comando para iniciar o jogo:
 ```sh
@@ -54,12 +55,10 @@ python Main/main.py
 
 No entanto, é importante destacar que toda a equipe trabalhou em conjunto para correção de eventuais erros e organização do código.
 
-## ✏️ Organização do Projeto
+## ✏️ Organização Técnica do Projeto
 O código foi dividido em módulos para uma melhor organização:
 - **Main:** Módulo principal que inicia o jogo. Por uma questão de organização, ele importa os módulos de cada fase do jogo;
-- **fase1:** Módulo que engloba outros módulos, definindo o funcionamento da primeira fase;
-- **fase2:** Módulo que engloba outros módulos, definindo o funcionamento da segunda fase;
-- **fase3:** Módulo que engloba outros módulos, definindo o funcionamento da terceira fase;
+- **fase1, fase2, fase3:** Módulos que englobam outros módulos, definindo o funcionamento da primeira, segunda e terceira fase, respectivamente;
 - **moduloConfig:** Contém as configurações fixas do jogo, como dimensões da tela, configurações da soundtrack e da parte gráfica;
 - **moduloDesenho:** Define uma classe de desenho para as imagens que aparecerão na tela;
 - **moduloPlayer:** Define a classe do jogador e contém os atributos a ele relacionados, como imagem, hitbox, vida e perda/recuperação de vida, métodos de movimentação e de colisão com o cenário / ataques do inimigo;
@@ -79,6 +78,8 @@ O código foi dividido em módulos para uma melhor organização:
 ### Justificativas:
 A biblioteca pygame foi escolhida por conter recursos que facilitaram o funcionamento do jogo de forma mais direta, possibilitando a integração efetiva entre os elementos escolhidos.
 Utilizamos o site <a href="https://www.pygame.org/docs/">*pygame.org*</a> como referência para a base do código e implementação das funções do jogo.
+
+O Aseprite foi escolhido pois possui propriedades que facilitaram a produção da parte gráfica do jogo, como divisão em camadas, ferramentas de pixel art e de animação.
 
 ## 🔍 Conceitos Aplicados
 - **Programação Orientada a Objetos e Herança:** Utilizamos os conceitos vistos em POO em basicamente todos os módulos. Foram criadas classes para o player, inimigo, coletáveis, etc (cada um com seus próprios atributos e métodos). Objetos que se repetiam em seu funcionamento, como os coletáveis, utilizaram conceitos de herança. Dessa forma, vimos a importância do POO projetos maiores como esse jogo, facilitando a organização e o compartilhamento de caracteristícas comuns.
