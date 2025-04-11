@@ -11,7 +11,6 @@ from moduloArmaAtiva import armaAtiva
 from moduloDesenho import *
 from moduloColetaveis import *
 from fase2 import fase2
-from moduloVisualizacaoColetaveis import printColetaveis
 
 pygame.mixer.Channel(1)#channel da musica
 pygame.mixer.Channel(4)#channel dos efeitos sonoros
