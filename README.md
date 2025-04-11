@@ -5,6 +5,8 @@ O Projeto da disciplina de Introdução à Programação do semestre 2024.2 cons
 
 O Maltemática é um jogo 2D estilo top-down shooter, que consiste no controle de um player, representado por um estudante de Matemática Discreta que precisa salvar seu professor Nivan. O jogo possui três fases, que são desbloqueadas após um combate contra Navin, um mago muito poderoso que sequestrou o professor e ataca o jogador com o poder da "matemática". A cada fase, uma nova arma é coletada, de forma que ela será guardada no inventario do player e poderá ser usada na próxima fase para derrotar Navin definitivamente e, assim, salvar Nivan dos absurdos matemáticos.
 
+### Tela Inicial Narrativa
+![telaInicial](https://i.ibb.co/0RPxtjsz/Tela-Inicial.png)
 ## 📌 Instalação e Execução
 Para executar o jogo é necessário instalar o [Python3](https://www.python.org/downloads/) e o [Pygame.](https://www.pygame.org/)
 
@@ -100,11 +102,13 @@ O Aseprite foi escolhido pois possui propriedades que facilitaram a produção d
 
 ## 📷 **Galeria de Imagens**
 
-**FASE 1**
+### FASE 1
 
 ![FASE 1](https://i.ibb.co/q3qdmzyD/banana.png)
 
-
-**FASE 2**
+### FASE 2
 
 ![FASE 2](https://i.ibb.co/XhDkCYs/ataques.png)
+
+### FASE3
+![FASE 3](https://i.ibb.co/mrgFJdVh/Screenshot-2025-04-11-111142.png)
