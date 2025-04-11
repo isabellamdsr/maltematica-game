@@ -21,7 +21,6 @@ class armaAtiva():
                         self.lastAtk = currentTime                      # ultimo tiro
                         for i in range(self.qntBalas):
                             if i == 0:
-                                print('x')
                                 pygame.mixer.Channel(4).play(self.TiroSfx)
                             bullets.append(Bullet(playerX, playerY, self.bulletSize, self.danoArma, anguloBala[i], self.bulletSpeed, arma))
                         

@@ -57,6 +57,32 @@ class Button():
 def get_font(size, font_file):
     return pygame.font.Font(font_file, size)
 
+def historiaInicio():
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption('Menu')  
+     
+    background = pygame.image.load("spritesGT/TelaInicial.png")
+    screen.blit(background, (0, 0))
+    
+    clock = pygame.time.Clock()
+
+    clock.tick(60)
+
+    while True: # Loop da tela de gamevoer
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    pygame.mixer.music.rewind()
+                    pygame.mixer.music.unpause()
+                    fase1()
+                    return
+        pygame.display.flip()
+
+
+
 def help():
     while True:
         pygame.display.set_caption('Menu')
@@ -121,7 +147,7 @@ def options():
         pygame.display.flip()
 
 def play():
-    fase1()
+    historiaInicio()
 
 
 def main_menu():
