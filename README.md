@@ -6,10 +6,13 @@ O Projeto da disciplina de Introdução à Programação do semestre 2024.2 cons
 
 O (Nome do Jogo) é um jogo 2D estilo top-down shooter, que consiste no controle de um player, representado por um estudante de Matemática Discreta que precisa salvar seu professor Nivan. O jogo possui três fases, que são desbloqueadas após um combate contra Navin, um mago muito poderoso que sequestrou o professor e ataca o jogador com o poder da "matemática". A cada fase, uma nova arma é coletada, de forma que ela será guardada no inventario do player e poderá ser usada na próxima fase para derrotar Navin definitivamente e, assim, salvar Nivan dos absurdos matemáticos.
 
-> screenshot das fases e do jogo funcionando
+**Galeria de imagens**
+![FASE 1](https://i.ibb.co/0ynmGL0Q/Fase1-Maltem-tica.png)
+
 ## 🖲️ Contribuidores e Funções
 - Davi Matoso <a href="https://github.com/DaviMatoso">(GitHub)</a>
   - Criação das armas utilizadas pelo personagem
+  - Dinâmica de dano ao personagem
 
 - Isabella Mendes <a href="https://github.com/isabellamdsr">(GitHub)</a>
   - Implementação dos objetos coletáveis
@@ -29,11 +32,13 @@ O (Nome do Jogo) é um jogo 2D estilo top-down shooter, que consiste no controle
 - Jesper Ian <a href="https://github.com/j-iann">(GitHub)</a>
   - Movimentação do inimigo
   - Ataques do inimigo
+  - Interação com a tela inicial
 
 - Arthur Jorge <a href="https://github.com/Arfhum">(GitHub)</a>
   - Movimentação do personagem pelo mapa
   - Implementação das colisões com o mapa e transição de fases
   - Modularização do código
+  - Ataques do inimigo
 
 No entanto, é importante destacar que toda a equipe trabalhou em conjunto para correção de eventuais erros e organização do código.
 
@@ -42,6 +47,7 @@ O código foi dividido em módulos para uma melhor organização:
 - **Main:** Módulo principal que inicia o jogo. Por uma questão de organização, ele importa os módulos de cada fase do jogo;
 - **fase1:** Módulo que engloba outros módulos, definindo o funcionamento da primeira fase;
 - **fase2:** Módulo que engloba outros módulos, definindo o funcionamento da segunda fase;
+- **fase3:** Módulo que engloba outros módulos, definindo o funcionamento da terceira fase;
 - **moduloConfig:** Contém as configurações fixas do jogo, como dimensões da tela, configurações da soundtrack e da parte gráfica;
 - **moduloDesenho:** Define uma classe de desenho para as imagens que aparecerão na tela;
 - **moduloPlayer:** Define a classe do jogador e contém os atributos a ele relacionados, como imagem, hitbox, vida e perda/recuperação de vida, métodos de movimentação e de colisão com o cenário / ataques do inimigo;
