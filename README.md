@@ -19,7 +19,7 @@ cd IP-Project
 ```
 - Execute o seguinte comando para iniciar o jogo:
 ```sh
-python3 Main.py
+python Main.py
 ```
 
 ## 🖲️ Contribuidores e Funções
@@ -57,8 +57,9 @@ No entanto, é importante destacar que toda a equipe trabalhou em conjunto para 
 
 ## ✏️ Organização Técnica do Projeto
 O código foi dividido em módulos para uma melhor organização:
-- **Main:** Módulo principal que inicia o jogo. Por uma questão de organização, ele importa os módulos de cada fase do jogo;
+- **Main:** Módulo principal que inicia o jogo.
 - **fase1, fase2, fase3:** Módulos que englobam outros módulos, definindo o funcionamento da primeira, segunda e terceira fase, respectivamente;
+- **moduloTelaFinal, moduloTelaInicial:** Define e projeta as telas iniciais e finais do jogo;
 - **moduloConfig:** Contém as configurações fixas do jogo, como dimensões da tela, configurações da soundtrack e da parte gráfica;
 - **moduloDesenho:** Define uma classe de desenho para as imagens que aparecerão na tela;
 - **moduloPlayer:** Define a classe do jogador e contém os atributos a ele relacionados, como imagem, hitbox, vida e perda/recuperação de vida, métodos de movimentação e de colisão com o cenário / ataques do inimigo;
@@ -66,7 +67,8 @@ O código foi dividido em módulos para uma melhor organização:
 - **moduloBala:** Criação das balas de cada arma de ataque do player, definindo imagem, movimentação, velocidade, ângulo e dano;
 - **moduloArmaAtiva:** Módulo que "ativa" o funcionamento da arma atual, escolhida dependendo da tecla do teclado pressionada;
 - **moduloProjetil:** Módulo que contém os ataques do inimigo (projéteis que caem em direção ao chão e podem acertar o player, explosão em área), definindo imagem e especificações do ataque utilizado;
-- **moduloNAVIN:** Define as especificações do inimigo, como sua imagem, movimentação e dinâmica de dano tomado.
+- **moduloNAVIN:** Define as especificações do inimigo, como sua imagem, movimentação, animação e dinãmica de ataque;
+- **moduloBarraDeVida:** Define a imagem e o funcionamento da barra de vida do inimigo.
 
 ## 📚 Ferramentas Utilizadas
 - **Pygame** - Framework de desenvolvimento de jogos
